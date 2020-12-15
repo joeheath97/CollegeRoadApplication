@@ -51,20 +51,29 @@ namespace CollegeRoadApplication
                 }
             }
 
-            // creating Creating Manager role     
-            if (!roleManager.RoleExists("Manager"))
+            // Create Swimming Club Offical Role  
+            if (!roleManager.RoleExists("SCO"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Manager";
+                role.Name = "SCO";
                 roleManager.Create(role);
 
             }
 
-            // creating Creating Employee role     
-            if (!roleManager.RoleExists("Employee"))
+            // Create Parent Role  
+            if (!roleManager.RoleExists("Parnet"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Employee";
+                role.Name = "Parent";
+                roleManager.Create(role);
+
+            }
+
+            // Create Swimmer Role       
+            if (!roleManager.RoleExists("Swimmer"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Swimmer";
                 roleManager.Create(role);
 
             }
