@@ -1,0 +1,35 @@
+﻿@model CollegeRoadApplication.ViewModel.SwimmingMeetFormViewModel
+
+@{
+    ViewBag.Title = "SwimmingMeetForm";
+}
+
+<h2>@Model.Title Meeting details</h2>
+
+@using (Html.BeginForm("Save", "SwimmingMeet"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.SwimmingMeet.Name)
+        @Html.TextBoxFor(m => m.SwimmingMeet.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SwimmingMeet.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SwimmingMeet.Vanue)
+        @Html.TextBoxFor(m => m.SwimmingMeet.Vanue, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SwimmingMeet.Vanue)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SwimmingMeet.Date)
+        @Html.TextBoxFor(m => m.SwimmingMeet.Date, "{0: dd/MM/yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SwimmingMeet.Date)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SwimmingMeet.PoolSizeTypeId)
+        @Html.DropDownListFor(m => m.SwimmingMeet.PoolSizeTypeId, new SelectList(Model.PoolSizeTypes, "Id", "PoolSize"), "Pool Size", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SwimmingMeet.Name)
+    </div>
+
+    @Html.HiddenFor(m => m.SwimmingMeet.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}

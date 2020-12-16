@@ -32,6 +32,9 @@ namespace CollegeRoadApplication.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<PoolSizeType> PoolSizeTypes { get; set; }
+
+        public DbSet<SwimmingMeet> SwimmingMeets { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

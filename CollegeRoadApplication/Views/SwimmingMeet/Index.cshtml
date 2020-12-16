@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CollegeRoadApplication.Models.SwimmingMeet>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Swimming Meetings</h2>
+
+<br />
+<div class="row">
+    <div class="col-sm-12">
+
+        @Html.ActionLink("New Meet", "New", "SwimmingMeet", null, new { @class = "btn btn-primary" })
+
+
+        @*@Html.ActionLink("All Events", "Index", "SwimmingEvent", null, new { @class = "btn btn-primary" })*@
+
+        <div class="form-inline pull-right">
+            <label>Search</label>
+            <input type="text" class="form-control" id="txtSearch" placeholder="By Venue" />
+            <input type="text" class="form-control" id="txtSearchDate" placeholder="By year" />
+            <br />
+        </div>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <br />
+    <p>No Meeting have been added yet!</p>
+}
+else
+{
+    <br />
+    <div id="grdMeet"></div>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(() => {
+        getMeetVenue();
+
+        $('#txtSearch').on('keyup', () => {
+            getMeetVenue();
+        });
+        $('#txtSearchDate').on('keyup', () => {
+            getMeetVenue();
+        });
+    });
+
+    function getMeetVenue() {
+        $.ajax({
+            url: '@Url.Action("SearchMeet", "SwimmingMeet")',
+            datatype: 'html',
+            method: 'GET',
+            data: { venue: $('#txtSearch').val(), Date: $('#txtSearchDate').val() },
+            success: function (res) {
+                $('#grdMeet').html('').html(res);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
+</script>

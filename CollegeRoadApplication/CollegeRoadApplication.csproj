@@ -171,6 +171,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\SwimmingMeetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,12 +183,27 @@
     <Compile Include="Migrations\202012161301355_AddDetailsToUser.Designer.cs">
       <DependentUpon>202012161301355_AddDetailsToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012161658279_AddPoolSizeType.cs" />
+    <Compile Include="Migrations\202012161658279_AddPoolSizeType.Designer.cs">
+      <DependentUpon>202012161658279_AddPoolSizeType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012161659070_PopulatePoolSizeType.cs" />
+    <Compile Include="Migrations\202012161659070_PopulatePoolSizeType.Designer.cs">
+      <DependentUpon>202012161659070_PopulatePoolSizeType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012161702065_AddSwimmingMeets.cs" />
+    <Compile Include="Migrations\202012161702065_AddSwimmingMeets.Designer.cs">
+      <DependentUpon>202012161702065_AddSwimmingMeets.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PoolSizeType.cs" />
+    <Compile Include="Models\SwimmingMeet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\SwimmingMeetFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -249,6 +265,9 @@
     <Content Include="Views\Member\MemberForm.cshtml" />
     <Content Include="Views\Member\Archive.cshtml" />
     <Content Include="Views\Member\_MemberFilterGrid.cshtml" />
+    <Content Include="Views\SwimmingMeet\Index.cshtml" />
+    <Content Include="Views\SwimmingMeet\_MeetFilterGrid.cshtml" />
+    <Content Include="Views\SwimmingMeet\SwimmingMeetForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -272,6 +291,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012161301355_AddDetailsToUser.resx">
       <DependentUpon>202012161301355_AddDetailsToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161658279_AddPoolSizeType.resx">
+      <DependentUpon>202012161658279_AddPoolSizeType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161659070_PopulatePoolSizeType.resx">
+      <DependentUpon>202012161659070_PopulatePoolSizeType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161702065_AddSwimmingMeets.resx">
+      <DependentUpon>202012161702065_AddSwimmingMeets.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

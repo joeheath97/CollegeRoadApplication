@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CollegeRoadApplication.Models.SwimmingMeet>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Meet</th>
+            <th>Date</th>
+            <th>Events</th>
+            <th>Venue</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            foreach (var meet in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(meet.Name, "Edit", "SwimmingMeet", new { id = meet.Id }, null)
+                    </td>
+                    <td>
+                        @meet.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.ActionLink(meet.Name, "AllMeetEvents", "SwimmingEvent", new { id = meet.Id }, null)
+                    </td>
+                    <td>
+                        @meet.Vanue
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="4" class="text-center">No Results Found</td></tr>
+        }
+
+    </tbody>
+</table>
