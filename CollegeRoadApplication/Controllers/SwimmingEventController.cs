@@ -114,7 +114,7 @@ namespace CollegeRoadApplication.Controllers
         public ActionResult Edit(int id)
         {
             var race = _context.SwimmingEvents.Include(c => c.SwimmingMeet).SingleOrDefault(r => r.Id == id);
-            race.Lanes = _context.Lanes.Where(c => c.SwimmingEventId == id).ToList();
+            race.Lanes = _context.Lanes.Include(u => u.ApplicationUser).Where(c => c.SwimmingEventId == id).ToList();
 
             if (race == null)
             {

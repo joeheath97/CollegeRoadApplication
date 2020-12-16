@@ -11,7 +11,7 @@ namespace CollegeRoadApplication.Models
         public int Id { get; set; } // Primary Key 
 
         [Display(Name = "Swimmer")]
-        public int? ApplicationUserId { get; set; } // Foregin Key 
+        public string ApplicationUserId { get; set; } // Foregin Key 
 
         public int SwimmingEventId { get; set; } // Foregin Key
 

@@ -1,0 +1,22 @@
+﻿@model CollegeRoadApplication.ViewModel.LaneFormViewModel
+@{
+    ViewBag.Title = "LaneForm";
+}
+
+<h2>@Model.Title Lane</h2>
+
+@using (Html.BeginForm("Save", "Lane"))
+{
+    <div class="form-group">
+        @Html.LabelFor(l => l.Lane.ApplicationUserId)
+        @Html.DropDownListFor(l => l.Lane.ApplicationUserId, new SelectList(Model.Swimmers, "Id", "Name"), "Member", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(l => l.Lane.Result)
+        @Html.TextBoxFor(l => l.Lane.Result, new { placeholder = "Result",  @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(e => e.Lane.SwimmingEventId)
+    @Html.HiddenFor(e => e.Lane.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

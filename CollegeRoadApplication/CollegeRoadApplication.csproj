@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LaneController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\SwimmingEventController.cs" />
@@ -204,6 +205,10 @@
     <Compile Include="Migrations\202012161856214_AddSwimmingEvent1.Designer.cs">
       <DependentUpon>202012161856214_AddSwimmingEvent1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012161957553_AddApplicationUserToLane.cs" />
+    <Compile Include="Migrations\202012161957553_AddApplicationUserToLane.Designer.cs">
+      <DependentUpon>202012161957553_AddApplicationUserToLane.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -215,6 +220,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AllMeetEventsViewModel.cs" />
+    <Compile Include="ViewModel\LaneFormViewModel.cs" />
     <Compile Include="ViewModel\SwimmingEventFormViewModel.cs" />
     <Compile Include="ViewModel\SwimmingMeetFormViewModel.cs" />
   </ItemGroup>
@@ -286,6 +292,7 @@
     <Content Include="Views\SwimmingEvent\_EventFilterGrid.cshtml" />
     <Content Include="Views\SwimmingEvent\SwimmingEventForm.cshtml" />
     <Content Include="Views\SwimmingEvent\AllMeetEvents.cshtml" />
+    <Content Include="Views\Lane\LaneForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012161856214_AddSwimmingEvent1.resx">
       <DependentUpon>202012161856214_AddSwimmingEvent1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161957553_AddApplicationUserToLane.resx">
+      <DependentUpon>202012161957553_AddApplicationUserToLane.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
