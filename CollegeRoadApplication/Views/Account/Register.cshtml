@@ -12,44 +12,58 @@
     <hr />
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
+        @Html.LabelFor(c => c.Name)
+        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Name)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
+        @Html.LabelFor(c => c.Gender)
+        @Html.TextBoxFor(c => c.Gender, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Gender)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
+        @Html.LabelFor(c => c.ContactNumber)
+        @Html.TextBoxFor(c => c.ContactNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ContactNumber)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
+        @Html.LabelFor(c => c.Age)
+        @Html.TextBoxFor(c => c.Age, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Age)
     </div>
 
     <div class="form-group">
-        @Html.Label("User Role", new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @*@Html.DropDownList("Name")*@
-            @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
-        </div>
+        @Html.LabelFor(c => c.Email)
+        @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Email)
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
+        @Html.LabelFor(c => c.UserName)
+        @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.UserName)
     </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Password)
+        @Html.PasswordFor(c => c.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Password)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.ConfirmPassword)
+        @Html.PasswordFor(c => c.ConfirmPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ConfirmPassword)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("User Role")
+        @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
+
+    </div>
+
+     <input type="submit" class="btn btn-default" value="Register" />
+
 }
 
 @section Scripts {

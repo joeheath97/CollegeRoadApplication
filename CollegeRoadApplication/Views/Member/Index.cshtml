@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CollegeRoadApplication.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Member</h2>
+
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        @*Name > Action > Controller > Param > Html/bootstrap*@
+        @*@Html.ActionLink("New Member", "New", "Member", null, new { @class = "btn btn-primary" })*@
+        @Html.ActionLink("Archived Memebers", "Archive", "Member", null, new { @class = "btn btn-primary" })
+
+        <div class="form-inline pull-right">
+            <label>Search</label>
+            <input type="text" class="form-control" id="txtSearch" placeholder="By Age Or Name" />
+            <br />
+        </div>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <p>No Members have been added</p>
+}
+else
+{
+    @*<br />
+        <div id="grdMember"></div>*@
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() != 0)
+            {
+                foreach (var member in Model)
+                {
+                    if (member.IsArchived == false)
+                    {
+                        <tr>
+                            @*Name > Action > Controller > Param *@
+                            <td>@Html.ActionLink(member.Name, "Edit", "Member", new { id = member.Name }, null)</td>
+                            <td>@Html.DisplayTextFor(m => member.Age)</td>
+                        </tr>
+                    }
+
+                }
+            }
+            else
+            {
+                <tr><td colspan="3" class="text-center">No Results Found</td></tr>
+            }
+
+        </tbody>
+    </table>
+}

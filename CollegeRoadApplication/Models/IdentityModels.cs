@@ -16,10 +16,23 @@ namespace CollegeRoadApplication.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Name { get; set; }
+
+        public string Gender { get; set; }
+
+        public string ContactNumber { get; set; }
+
+        public int Age { get; set; }
+
+        public bool isAllowedToSwim { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
