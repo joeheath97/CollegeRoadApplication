@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CollegeRoadApplication.Models.SwimmingEvent>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Age</th>
+            <th>Distance</th>
+            <th>Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var race in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(race.Name, "Edit", "SwimmingEvent", new { id = race.Id }, null)</td>
+                <td>@race.AgeRange</td>
+                <td>@race.Distance</td>
+                <td>@race.Gender</td>
+            </tr>
+        }
+    </tbody>
+</table>

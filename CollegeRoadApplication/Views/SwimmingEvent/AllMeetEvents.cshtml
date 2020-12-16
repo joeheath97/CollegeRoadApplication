@@ -1,0 +1,42 @@
+﻿@model CollegeRoadApplication.ViewModel.AllMeetEventsViewModel
+@{
+    ViewBag.Title = "AllMeetEvents";
+}
+
+<h2>All Events for @Model.SwimmingMeet.Name</h2>
+
+<p>
+    @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
+</p>
+
+@if (!Model.SwimmingEvents.Any())
+{
+    <p>
+        No Events have been added yet!
+    </p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Distance</th>
+                <th>Gender</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var race in Model.SwimmingEvents)
+            {
+                <tr>
+                    <td>@Html.ActionLink(race.Name, "Edit", "SwimmingEvent", new { id = race.Id }, null)</td>
+                    <td>@race.Distance</td>
+                    <td>@race.Gender</td>
+                    <td>@race.AgeRange</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}

@@ -36,6 +36,10 @@ namespace CollegeRoadApplication.Models
 
         public DbSet<SwimmingMeet> SwimmingMeets { get; set; }
 
+        public DbSet<SwimmingEvent> SwimmingEvents { get; set; }
+
+        public DbSet<Lane> Lanes { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
