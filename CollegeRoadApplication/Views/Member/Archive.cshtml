@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CollegeRoadApplication.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Archive";
+}
+
+<h2>Archive</h2>
+
+@if (!Model.Any())
+{
+    <p>No Members have been archived</p>
+}
+else
+{
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    @*Name > Action > Controller > Param *@
+                    <td>@Html.ActionLink(member.Name, "Edit", "Member", new { id = member.Name }, null)</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

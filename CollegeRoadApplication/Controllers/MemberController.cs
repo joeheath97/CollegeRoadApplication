@@ -30,6 +30,16 @@ namespace CollegeRoadApplication.Controllers
             return View(users);
         }
 
+        public PartialViewResult SearchMembers(string searchText)
+        {
+
+            var members = _context.Users.ToList();
+            var searchResults = members.Where(m => m.Age.ToString().Contains(searchText) || m.Name.ToLower().Contains(searchText.ToLower()));
+
+            return PartialView("_MemberFilterGrid", searchResults);
+        }
+
+
         /**
          * Param {id} = the name of the user
          */
@@ -46,6 +56,7 @@ namespace CollegeRoadApplication.Controllers
             return View("MemberForm", member);
         }
 
+        [HttpPost]
         public ActionResult Save(ApplicationUser user)
         {
             if (!ModelState.IsValid)
@@ -75,6 +86,13 @@ namespace CollegeRoadApplication.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Member");
+        }
+
+        public ActionResult Archive()
+        {
+            var members = _context.Users.Where(m => m.IsArchived == true);
+
+            return View(members);
         }
     }
 }
