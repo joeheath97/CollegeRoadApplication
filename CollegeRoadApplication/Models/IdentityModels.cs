@@ -28,6 +28,10 @@ namespace CollegeRoadApplication.Models
         public bool isAllowedToSwim { get; set; }
 
         public bool IsArchived { get; set; }
+
+        public int? FamilyGroupId { get; set; } // Foregin Key
+
+        public FamilyGroup FamilyGroup { get; set; } // Single Nav reference
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -39,6 +43,8 @@ namespace CollegeRoadApplication.Models
         public DbSet<SwimmingEvent> SwimmingEvents { get; set; }
 
         public DbSet<Lane> Lanes { get; set; }
+
+        public DbSet<FamilyGroup> FamilyGroups { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

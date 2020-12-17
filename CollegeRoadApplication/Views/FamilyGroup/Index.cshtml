@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CollegeRoadApplication.Models.FamilyGroup>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Family Groups</h2>
+<p>
+    @Html.ActionLink("New Family Group", "New", "FamilyGroup", null, new { @class = "btn btn-primary" })
+</p>
+
+@if (!Model.Any())
+{
+    <p>There are no family groups</p>
+}
+else
+{
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Family Groups</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var familyGroup in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(familyGroup.Name, "Edit", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}

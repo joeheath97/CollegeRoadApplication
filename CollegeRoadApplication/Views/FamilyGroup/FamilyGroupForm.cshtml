@@ -1,0 +1,41 @@
+﻿@model CollegeRoadApplication.Models.FamilyGroup
+@{
+    ViewBag.Title = "FamilyGroupForm";
+}
+
+<h2>@Model.Name Family Group</h2>
+
+@using (Html.BeginForm("Save", "FamilyGroup"))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Name)
+        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Name)
+    </div>
+
+    if (Model.Members.Count > 0)
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Members</th>
+                </tr>
+            </thead>
+            <tbody>
+                   @foreach (var member in Model.Members)
+                    {
+                <tr>
+                    <td>@Html.ActionLink(member.Name, "Edit", "Member", new { id = member.Id }, null)</td>
+                </tr>
+                    }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Members Added to Family Group</p>
+    }
+
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
