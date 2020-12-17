@@ -1,17 +1,14 @@
 ﻿@model IEnumerable<CollegeRoadApplication.Models.ApplicationUser>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Swimmers";
 }
 
-<h2>All Member</h2>
+<h2>All Swimmers</h2>
 
 <br />
 <div class="row">
     <div class="col-sm-12">
-        @*Name > Action > Controller > Param > Html/bootstrap*@
-        @Html.ActionLink("Archived Memebers", "Archive", "Member", null, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Eligible Swimmers", "AllSwimmers", "Member", null, new { @class = "btn btn-primary" })
         <div class="form-inline pull-right">
             <label>Search</label>
             <input type="text" class="form-control" id="txtSearch" placeholder="By Age Or Name" />
@@ -27,7 +24,7 @@
 else
 {
     <br />
-    <div id="grdMember"></div>
+    <div id="grdSwimmer"></div>
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -42,12 +39,12 @@ else
 
     function getMemebers() {
         $.ajax({
-            url: '@Url.Action("SearchMembers", "Member")',
+            url: '@Url.Action("SearchSwimmer", "Member")',
             datatype: 'html',
             method: 'GET',
             data: { searchText: $('#txtSearch').val() },
             success: function (res) {
-                $('#grdMember').html('').html(res);
+                $('#grdSwimmer').html('').html(res);
             },
             error: function (err) {
                 console.log(err);
@@ -55,3 +52,4 @@ else
         })
     }
 </script>
+

@@ -28,7 +28,21 @@ namespace CollegeRoadApplication.Controllers
         {
             var users = _context.Users.ToList();
 
-            return View(users);
+            return View();
+        }
+
+        public ActionResult AllSwimmers()
+        {
+            var swimmers = _context.Users.ToList();
+
+            return View(swimmers);
+        }
+
+        public ActionResult Archive()
+        {
+            var members = _context.Users.ToList();
+
+            return View(members);
         }
 
         public PartialViewResult SearchMembers(string searchText)
@@ -40,9 +54,18 @@ namespace CollegeRoadApplication.Controllers
             return PartialView("_MemberFilterGrid", searchResults);
         }
 
+        public PartialViewResult SearchSwimmer(string searchText)
+        {
+
+            var members = _context.Users.ToList();
+            var searchResults = members.Where(m => m.Age.ToString().Contains(searchText) || m.Name.ToLower().Contains(searchText.ToLower()));
+
+            return PartialView("_SwimmerFilterGrid", searchResults);
+        }
+
 
         /**
-         * Param {id} = the name of the user
+         * Param {id} = the Id of the Application User
          */
         public ActionResult Edit(string id)
         {
@@ -101,11 +124,5 @@ namespace CollegeRoadApplication.Controllers
             return RedirectToAction("Index", "Member");
         }
 
-        public ActionResult Archive()
-        {
-            var members = _context.Users.Where(m => m.IsArchived == true);
-
-            return View(members);
-        }
     }
 }

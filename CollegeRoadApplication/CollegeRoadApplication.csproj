@@ -303,6 +303,8 @@
     <Content Include="Views\FamilyGroup\Index.cshtml" />
     <Content Include="Views\FamilyGroup\FamilyGroupForm.cshtml" />
     <Content Include="Views\FamilyGroup\New.cshtml" />
+    <Content Include="Views\Member\AllSwimmers.cshtml" />
+    <Content Include="Views\Member\_SwimmerFilterGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
