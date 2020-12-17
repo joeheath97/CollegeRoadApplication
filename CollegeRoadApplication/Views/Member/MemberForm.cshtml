@@ -1,4 +1,4 @@
-﻿@model CollegeRoadApplication.Models.ApplicationUser
+﻿@model CollegeRoadApplication.ViewModel.MemberFormViewModel
 
 @{
     ViewBag.Title = "MemberForm";
@@ -9,46 +9,50 @@
 @using (Html.BeginForm("Save", "Member"))
 {
     <div class="form-group">
-        @Html.LabelFor(c => c.Name)
-        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.Name)
+        @Html.LabelFor(c => c.ApplicationUser.Name)
+        @Html.TextBoxFor(c => c.ApplicationUser.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ApplicationUser.Name)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.UserName)
-        @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.UserName)
+        @Html.LabelFor(c => c.ApplicationUser.UserName)
+        @Html.TextBoxFor(c => c.ApplicationUser.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ApplicationUser.UserName)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Email)
-        @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.Email)
+        @Html.LabelFor(c => c.ApplicationUser.Email)
+        @Html.TextBoxFor(c => c.ApplicationUser.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ApplicationUser.Email)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Gender)
-        @Html.TextBoxFor(c => c.Gender, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.Gender)
+        @Html.LabelFor(c => c.ApplicationUser.Gender)
+        @Html.TextBoxFor(c => c.ApplicationUser.Gender, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ApplicationUser.Gender)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.ContactNumber)
-        @Html.TextBoxFor(c => c.ContactNumber, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.ContactNumber)
+        @Html.LabelFor(c => c.ApplicationUser.ContactNumber)
+        @Html.TextBoxFor(c => c.ApplicationUser.ContactNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ApplicationUser.ContactNumber)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Age)
-        @Html.TextBoxFor(c => c.Age, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.Age)
+        @Html.LabelFor(c => c.ApplicationUser.Age)
+        @Html.TextBoxFor(c => c.ApplicationUser.Age, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ApplicationUser.Age)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.ApplicationUser.FamilyGroupId)
+        @Html.DropDownListFor(c => c.ApplicationUser.FamilyGroupId,new SelectList(Model.FamilyGroups, "Id", "Name"), new { @class = "form-control" })
     </div>
     <div class="checkbox">
         <label>
-            @Html.CheckBoxFor(c => c.isAllowedToSwim) Premission to Swim
+            @Html.CheckBoxFor(c => c.ApplicationUser.isAllowedToSwim) Premission to Swim
         </label>
     </div>
     <div class="checkbox">
         <label>
-            @Html.CheckBoxFor(c => c.IsArchived) Archived
+            @Html.CheckBoxFor(c => c.ApplicationUser.IsArchived) Archived
         </label>
     </div>
 
-    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ApplicationUser.Id)
     <button type="submit" class="btn btn-primary">Save</button>
 }

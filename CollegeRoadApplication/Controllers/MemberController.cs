@@ -1,4 +1,5 @@
 ﻿using CollegeRoadApplication.Models;
+using CollegeRoadApplication.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -46,41 +47,53 @@ namespace CollegeRoadApplication.Controllers
         public ActionResult Edit(string id)
         {
 
-            var member = _context.Users.SingleOrDefault(m => m.Name == id);
+            var member = _context.Users.SingleOrDefault(m => m.Id == id);
 
             if (member == null)
             {
                 return HttpNotFound();
             }
 
-            return View("MemberForm", member);
+            var viewModel = new MemberFormViewModel
+            {
+                ApplicationUser = member,
+                FamilyGroups = _context.FamilyGroups.ToList()
+            };
+
+            return View("MemberForm", viewModel);
         }
 
         [HttpPost]
-        public ActionResult Save(ApplicationUser user)
+        public ActionResult Save(MemberFormViewModel user)
         {
             if (!ModelState.IsValid)
             {
+                var viewModel = new MemberFormViewModel
+                {
+                    ApplicationUser = user.ApplicationUser,
+                    FamilyGroups = _context.FamilyGroups.ToList()
+                };
 
-                return View("MemberForm", user);
+                return View("MemberForm", viewModel);
             }
 
-            if(user.Id == "")
+            if(user.ApplicationUser.Id == "")
             {
-                _context.Users.Add(user);
+                _context.Users.Add(user.ApplicationUser);
             }
             else
             {
-                var userInDb = _context.Users.Single(m => m.Name == user.Name);
+                var userInDb = _context.Users.Single(m => m.Id == user.ApplicationUser.Id);
 
-                userInDb.Name = user.Name;
-                userInDb.UserName = user.UserName;
-                userInDb.Email = user.Email;
-                userInDb.Gender = user.Gender;
-                userInDb.ContactNumber = user.ContactNumber;
-                userInDb.Age = user.Age;
-                userInDb.isAllowedToSwim = user.isAllowedToSwim;
-                userInDb.IsArchived = user.IsArchived;
+                userInDb.Name = user.ApplicationUser.Name;
+                userInDb.UserName = user.ApplicationUser.UserName;
+                userInDb.Email = user.ApplicationUser.Email;
+                userInDb.Gender = user.ApplicationUser.Gender;
+                userInDb.ContactNumber = user.ApplicationUser.ContactNumber;
+                userInDb.Age = user.ApplicationUser.Age;
+                userInDb.isAllowedToSwim = user.ApplicationUser.isAllowedToSwim;
+                userInDb.IsArchived = user.ApplicationUser.IsArchived;
+                userInDb.FamilyGroupId = user.ApplicationUser.FamilyGroupId;
             }
 
             _context.SaveChanges();

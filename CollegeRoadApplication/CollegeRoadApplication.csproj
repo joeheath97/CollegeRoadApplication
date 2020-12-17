@@ -227,6 +227,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AllMeetEventsViewModel.cs" />
     <Compile Include="ViewModel\LaneFormViewModel.cs" />
+    <Compile Include="ViewModel\MemberFormViewModel.cs" />
     <Compile Include="ViewModel\SwimmingEventFormViewModel.cs" />
     <Compile Include="ViewModel\SwimmingMeetFormViewModel.cs" />
   </ItemGroup>
