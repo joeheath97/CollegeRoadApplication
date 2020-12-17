@@ -49,30 +49,30 @@
     </p>
     if (Model.SwimmingEvent.Lanes != null)
     {
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Lane</th>
-            <th>Swimmer Name</th>
-            <th>Results</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            int count = 1;
-
-            foreach (var lane in Model.SwimmingEvent.Lanes)
-            {
+        <table class="table table-bordered table-hover">
+            <thead>
                 <tr>
-                    <td>@count</td>
-                    <td>@Html.ActionLink(lane.ApplicationUser.Name, "Edit", "Lane", new { id = lane.Id })</td>
-                    <td>@lane.Result</td>
+                    <th>Lane</th>
+                    <th>Swimmer Name</th>
+                    <th>Results</th>
                 </tr>
-                count = count + 1;
-            }
-        }
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+
+                    foreach (var lane in Model.SwimmingEvent.Lanes)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@Html.ActionLink(lane.ApplicationUser.Name, "Edit", "Lane", new { id = lane.Id })</td>
+                            <td>@lane.Result</td>
+                        </tr>
+                        count = count + 1;
+                    }
+                }
+            </tbody>
+        </table>
     }
 
 

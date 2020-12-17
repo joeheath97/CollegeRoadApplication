@@ -9,10 +9,14 @@
 <br />
 <div class="row">
     <div class="col-sm-12">
-        @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
+        @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+        {
+            @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
+        }
+
         <div class="form-inline pull-right">
             <label>Search</label>
-            <input type="text" class="form-control" id="txtSearchDistance" placeholder="By distance" />
+            <input type="text" class="form-control" id="txtSearchDistance" placeholder="By Distance" />
             <input type="text" class="form-control" id="txtSearchAge" placeholder="By Age" />
             <input type="text" class="form-control" id="txtSearchGender" placeholder="By Gender" />
             <br />

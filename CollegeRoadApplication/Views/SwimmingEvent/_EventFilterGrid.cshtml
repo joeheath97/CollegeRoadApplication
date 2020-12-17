@@ -4,8 +4,8 @@
     <thead>
         <tr>
             <th>Event</th>
-            <th>Age</th>
             <th>Distance</th>
+            <th>Age</th>
             <th>Gender</th>
         </tr>
     </thead>
@@ -14,12 +14,12 @@
         {
             foreach (var race in Model)
             {
-                <tr>
-                    <td>@Html.ActionLink(race.Name, "Edit", "SwimmingEvent", new { id = race.Id }, null)</td>
-                    <td>@race.AgeRange</td>
-                    <td>@race.Distance</td>
-                    <td>@race.Gender</td>
-                </tr>
+        <tr>
+            <td>@Html.ActionLink(race.Name, "Edit", "SwimmingEvent", new { id = race.Id }, null)</td>
+            <td>@race.Distance</td>
+            <td>@race.AgeRange</td>
+            <td>@race.Gender</td>
+        </tr>
             }
         }
         else

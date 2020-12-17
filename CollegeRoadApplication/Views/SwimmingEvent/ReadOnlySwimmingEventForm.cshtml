@@ -1,0 +1,35 @@
+﻿@model CollegeRoadApplication.ViewModel.SwimmingEventFormViewModel
+
+@{
+    ViewBag.Title = "SwimmingEventForm";
+}
+
+<h2>@Model.SwimmingEvent.Name Swimming Event - Round: @Model.SwimmingEvent.Round</h2>
+
+@if (Model.SwimmingEvent.Lanes != null)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Lane</th>
+                <th>Swimmer Name</th>
+                <th>Results</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 1;
+
+                foreach (var lane in Model.SwimmingEvent.Lanes)
+                {
+                        <tr>
+                            <td>@count</td>
+                            <td>@lane.ApplicationUser.Name</td>
+                            <td>@lane.Result</td>
+                        </tr>
+                    count = count + 1;
+                }
+            }
+        </tbody>
+    </table>
+}

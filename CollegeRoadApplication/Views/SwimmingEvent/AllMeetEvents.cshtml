@@ -5,9 +5,10 @@
 
 <h2>All Events for @Model.SwimmingMeet.Name</h2>
 
-<p>
+@if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+{
     @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
-</p>
+}
 
 @if (!Model.SwimmingEvents.Any())
 {

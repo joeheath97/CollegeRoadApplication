@@ -24,7 +24,7 @@ namespace CollegeRoadApplication.Controllers
         }
 
         // GET: SwimmingEvent
-
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var events = _context.SwimmingEvents.ToList();
@@ -34,7 +34,8 @@ namespace CollegeRoadApplication.Controllers
 
         /**
          * Param {id} - Swimming Meet Id 
-         */ 
+         */
+        [AllowAnonymous]
         public ActionResult AllMeetEvents(int id)
         {
             var viewModel = new AllMeetEventsViewModel
@@ -46,6 +47,7 @@ namespace CollegeRoadApplication.Controllers
             return View("AllMeetEvents", viewModel);
         }
 
+        [AllowAnonymous]
         public PartialViewResult SearchEvent(string distance, string age, string gender)
         {
             var events = _context.SwimmingEvents.ToList();
@@ -111,6 +113,7 @@ namespace CollegeRoadApplication.Controllers
         /**
          * Param {id} - Swimming Event Id
          */
+        [AllowAnonymous]
         public ActionResult Edit(int id)
         {
             var race = _context.SwimmingEvents.Include(c => c.SwimmingMeet).SingleOrDefault(r => r.Id == id);
@@ -127,11 +130,14 @@ namespace CollegeRoadApplication.Controllers
                 SwimmingMeets = _context.SwimmingMeets.ToList()
             };
 
+            if (this.User.IsInRole("Admim") || this.User.IsInRole("SCO"))
+            {
+                return View("SwimmingEventForm", viewModel);
+            }
 
-            return View("SwimmingEventForm", viewModel);
+            return View("ReadOnlySwimmingEventForm", viewModel);
 
         }
-
 
     }
 }

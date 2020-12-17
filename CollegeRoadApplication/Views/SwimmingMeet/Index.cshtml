@@ -8,11 +8,10 @@
 <br />
 <div class="row">
     <div class="col-sm-12">
-
-        @Html.ActionLink("New Meet", "New", "SwimmingMeet", null, new { @class = "btn btn-primary" })
-
-
-        @*@Html.ActionLink("All Events", "Index", "SwimmingEvent", null, new { @class = "btn btn-primary" })*@
+        @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+        {
+            @Html.ActionLink("New Meet", "New", "SwimmingMeet", null, new { @class = "btn btn-primary" })
+        }
 
         <div class="form-inline pull-right">
             <label>Search</label>

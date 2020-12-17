@@ -23,13 +23,15 @@ namespace CollegeRoadApplication.Controllers
         }
 
         // GET: SwimmingMeet
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var meets = _context.SwimmingMeets.ToList();
-
+            
             return View(meets);
         }
 
+        [AllowAnonymous]
         public PartialViewResult SearchMeet(string venue, string Date)
         {
             var meets = _context.SwimmingMeets.ToList();

@@ -15,9 +15,14 @@
             foreach (var meet in Model)
             {
                 <tr>
-                    <td>
-                        @Html.ActionLink(meet.Name, "Edit", "SwimmingMeet", new { id = meet.Id }, null)
-                    </td>
+                    @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+                    {
+                        <td>@Html.ActionLink(meet.Name, "Edit", "SwimmingMeet", new { id = meet.Id }, null)</td>
+                    }
+                    else
+                    {
+                        <td>@meet.Name</td>
+                    }
                     <td>
                         @meet.Date.ToShortDateString()
                     </td>
