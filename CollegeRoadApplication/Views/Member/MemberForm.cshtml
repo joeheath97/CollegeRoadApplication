@@ -38,20 +38,28 @@
         @Html.TextBoxFor(c => c.ApplicationUser.Age, new { @class = "form-control" })
         @Html.ValidationMessageFor(c => c.ApplicationUser.Age)
     </div>
-    <div class="form-group">
-        @Html.LabelFor(c => c.ApplicationUser.FamilyGroupId)
-        @Html.DropDownListFor(c => c.ApplicationUser.FamilyGroupId,new SelectList(Model.FamilyGroups, "Id", "Name"), new { @class = "form-control" })
-    </div>
+    if (User.IsInRole("Admin") || User.IsInRole("SCO"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(c => c.ApplicationUser.FamilyGroupId)
+            @Html.DropDownListFor(c => c.ApplicationUser.FamilyGroupId, new SelectList(Model.FamilyGroups, "Id", "Name"), new { @class = "form-control" })
+        </div>
+    }
+
     <div class="checkbox">
         <label>
             @Html.CheckBoxFor(c => c.ApplicationUser.isAllowedToSwim) Premission to Swim
         </label>
     </div>
-    <div class="checkbox">
-        <label>
-            @Html.CheckBoxFor(c => c.ApplicationUser.IsArchived) Archived
-        </label>
-    </div>
+    if (User.IsInRole("Admin") || User.IsInRole("SCO"))
+    {
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(c => c.ApplicationUser.IsArchived) Archived
+            </label>
+        </div>
+    }
+
 
     @Html.HiddenFor(m => m.ApplicationUser.Id)
     <button type="submit" class="btn btn-primary">Save</button>

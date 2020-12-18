@@ -61,7 +61,7 @@ namespace CollegeRoadApplication
             }
 
             // Create Parent Role  
-            if (!roleManager.RoleExists("Parnet"))
+            if (!roleManager.RoleExists("Parent"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Parent";

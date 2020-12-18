@@ -9,15 +9,25 @@
 
 </head>
 <body>
-    @if (!User.Identity.IsAuthenticated)
-    {
-        @Html.Partial("_NavBarGuest")
-    }
+
 
     @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
     {
         @Html.Partial("_NavBar")
     }
+    else if (this.User.IsInRole("Parent"))
+    {
+        @Html.Partial("_NavBarParent")
+    }
+    else if (this.User.IsInRole("Swimmer"))
+    {
+
+    }
+    else
+    {
+        @Html.Partial("_NavBarGuest")
+    }
+
 
     <div class="container body-content">
         @RenderBody()

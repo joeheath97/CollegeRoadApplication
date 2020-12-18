@@ -307,6 +307,7 @@
     <Content Include="Views\Member\_SwimmerFilterGrid.cshtml" />
     <Content Include="Views\SwimmingEvent\ReadOnlySwimmingEventForm.cshtml" />
     <Content Include="Views\Shared\_NavBarGuest.cshtml" />
+    <Content Include="Views\Shared\_NavBarParent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

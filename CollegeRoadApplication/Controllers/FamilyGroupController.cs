@@ -1,4 +1,5 @@
 ﻿using CollegeRoadApplication.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,21 @@ namespace CollegeRoadApplication.Controllers
         {
             var familyGroup = _context.FamilyGroups.ToList();
 
+            if (User.IsInRole("Parent"))
+            {
+                var currentUserId = User.Identity.GetUserId();
+
+                var user = _context.Users.Single(m => m.Id == currentUserId);
+
+                var linkedFamilyGroup = _context.FamilyGroups.Where(m => m.Id == user.FamilyGroupId);
+
+                return View(linkedFamilyGroup);
+            }
+
+
             return View(familyGroup);
         }
+
 
         public ActionResult New()
         {
