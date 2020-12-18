@@ -1,5 +1,6 @@
 ﻿using CollegeRoadApplication.Models;
 using CollegeRoadApplication.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace CollegeRoadApplication.Controllers
         public ActionResult Index()
         {
             var meets = _context.SwimmingMeets.ToList();
-            
+
             return View(meets);
         }
 

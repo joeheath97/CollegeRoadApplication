@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CollegeRoadApplication.Controllers
 {
@@ -27,9 +29,33 @@ namespace CollegeRoadApplication.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var events = _context.SwimmingEvents.ToList();
 
-            return View(events);
+
+            if (User.IsInRole("Swimmer"))
+            {
+                var currentUserId = User.Identity.GetUserId();
+
+                var lanes = _context.Lanes.Where(m => m.ApplicationUserId == currentUserId).ToList();
+
+                var swimmingEvents = new List<SwimmingEvent>();
+
+                foreach (var lane in lanes)
+                {
+                    swimmingEvents.Add(_context.SwimmingEvents.Single(l => l.Id == lane.SwimmingEventId));
+                    
+                }
+
+                return View("PersonalIndex", swimmingEvents);
+
+            }
+            else
+            {
+                var events = _context.SwimmingEvents.ToList();
+
+                return View(events);
+            }
+
+            
         }
 
         /**
@@ -130,12 +156,16 @@ namespace CollegeRoadApplication.Controllers
                 SwimmingMeets = _context.SwimmingMeets.ToList()
             };
 
-            if (this.User.IsInRole("Admim") || this.User.IsInRole("SCO"))
+            if (User.IsInRole("Admin") || User.IsInRole("SCO"))
             {
                 return View("SwimmingEventForm", viewModel);
             }
+            else
+            {
 
-            return View("ReadOnlySwimmingEventForm", viewModel);
+                return View("ReadOnlySwimmingEventForm", viewModel);
+
+            }
 
         }
 
