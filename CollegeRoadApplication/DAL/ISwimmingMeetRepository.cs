@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CollegeRoadApplication.DAL
 {
-    interface ISwimmingMeetRepository : IDisposable
+    public interface ISwimmingMeetRepository : IDisposable
     {
         IEnumerable<SwimmingMeet> GetAllSwimmingMeets();
 

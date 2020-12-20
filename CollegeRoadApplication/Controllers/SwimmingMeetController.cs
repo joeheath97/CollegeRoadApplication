@@ -21,6 +21,11 @@ namespace CollegeRoadApplication.Controllers
             _swimmingMeetRepository = new SwimmingMeetRepository(new ApplicationDbContext());
         }
 
+        public SwimmingMeetController(ISwimmingMeetRepository swimmingMeetRepository)
+        {
+            _swimmingMeetRepository = swimmingMeetRepository;
+        }
+
         protected override void Dispose(bool disposing)
         {
             _swimmingMeetRepository.Dispose();

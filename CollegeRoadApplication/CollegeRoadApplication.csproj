@@ -316,6 +316,7 @@
     <Content Include="Views\SwimmingEvent\PersonalIndex.cshtml" />
     <Content Include="Views\Member\Delete.cshtml" />
     <Content Include="Views\SwimmingMeet\Delete.cshtml" />
+    <Content Include="Views\SwimmingEvent\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

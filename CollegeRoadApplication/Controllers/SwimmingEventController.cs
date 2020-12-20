@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Net;
 
 namespace CollegeRoadApplication.Controllers
 {
@@ -167,6 +168,54 @@ namespace CollegeRoadApplication.Controllers
 
             }
 
+        }
+
+        // GET: Student/Delete/5
+        public ActionResult Delete(int id)
+        {
+
+            if (String.IsNullOrEmpty(id.ToString()))
+            {
+                // returns a bad request
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // It finds the User to be deleted.
+            SwimmingEvent swimmingEvent = _context.SwimmingEvents.Find(id);
+
+            if (swimmingEvent == null)
+            {
+                // if doesn't found returns 404
+                return HttpNotFound();
+            }
+            // Returns the Student data to show the details of what will be deleted.
+            return View(swimmingEvent);
+        }
+
+        // POST: Student/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]         //Represents an attribute name of the get Action
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                // Finds the User
+                SwimmingEvent swimmingEvent = _context.SwimmingEvents.Find(id);
+
+                // Try to remove it
+                _context.SwimmingEvents.Remove(swimmingEvent);
+
+                // Save the changes
+                _context.SaveChanges();
+            }
+            catch
+            {
+                //Log the error add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            return RedirectToAction("Index");
         }
 
     }

@@ -10,10 +10,11 @@ namespace CollegeRoadApplication.Models
     {
         public int Id { get; set; } // Primary Key
 
-        [Display(Name = "Swimming Meet")]
+        [Display(Name = "Swimming meet")]
         public int SwimmingMeetId { get; set; } // Foregin Key
 
         [Required]
+        [Display(Name = "Event name")]
         public string Name { get; set; }
 
 
@@ -21,7 +22,7 @@ namespace CollegeRoadApplication.Models
         public string Gender { get; set; }
 
         [Required]
-        [Display(Name = "Age Range")]
+        [Display(Name = "Age range")]
         public string AgeRange { get; set; }
 
         [Required]

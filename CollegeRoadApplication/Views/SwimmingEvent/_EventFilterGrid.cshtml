@@ -3,10 +3,11 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Event</th>
-            <th>Distance</th>
-            <th>Age</th>
-            <th>Gender</th>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th>@Html.DisplayNameFor(m => m.Distance)</th>
+            <th>@Html.DisplayNameFor(m => m.AgeRange)</th>
+            <th>@Html.DisplayNameFor(m => m.Gender)</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
             <td>@race.Distance</td>
             <td>@race.AgeRange</td>
             <td>@race.Gender</td>
+            <td>@Html.ActionLink("Delete", "Delete", "SwimmingEvent", new { id = race.Id }, null)</td>
         </tr>
             }
         }
