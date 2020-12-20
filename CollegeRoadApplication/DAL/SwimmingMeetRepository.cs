@@ -10,7 +10,7 @@ namespace CollegeRoadApplication.DAL
     {
         private ApplicationDbContext _context;
 
-        public SwimmingMeetRepository(ApplicationDbContext  context)
+        public SwimmingMeetRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -35,9 +35,14 @@ namespace CollegeRoadApplication.DAL
             return _context.SwimmingMeets.SingleOrDefault(m => m.Id == id);
         }
 
-        public void Remove(ApplicationUser user)
+        public SwimmingMeet FindById(int id)
         {
-            throw new NotImplementedException();
+            return _context.SwimmingMeets.Find(id);
+        }
+
+        public void Remove(SwimmingMeet meet)
+        {
+            _context.SwimmingMeets.Remove(meet);
         }
 
         public void Save()

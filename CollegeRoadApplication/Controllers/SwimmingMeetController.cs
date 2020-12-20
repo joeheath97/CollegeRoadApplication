@@ -1,4 +1,5 @@
-﻿using CollegeRoadApplication.Models;
+﻿using CollegeRoadApplication.DAL;
+using CollegeRoadApplication.Models;
 using CollegeRoadApplication.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
@@ -12,23 +13,24 @@ namespace CollegeRoadApplication.Controllers
 {
     public class SwimmingMeetController : Controller
     {
-        private ApplicationDbContext _context;
+
+        private ISwimmingMeetRepository _swimmingMeetRepository;
 
         public SwimmingMeetController()
         {
-            _context = new ApplicationDbContext();
+            _swimmingMeetRepository = new SwimmingMeetRepository(new ApplicationDbContext());
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            _swimmingMeetRepository.Dispose();
         }
 
         // GET: SwimmingMeet
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var meets = _context.SwimmingMeets.ToList();
+            var meets = _swimmingMeetRepository.GetAllSwimmingMeets();
 
             return View(meets);
         }
@@ -36,7 +38,7 @@ namespace CollegeRoadApplication.Controllers
         [AllowAnonymous]
         public PartialViewResult SearchMeet(string venue, string Date)
         {
-            var meets = _context.SwimmingMeets.ToList();
+            var meets = _swimmingMeetRepository.GetAllSwimmingMeets();
 
             var results = meets.Where(v => v.Vanue.ToLower().Contains(venue.ToLower()));
             results = results.Where(v => v.Date.Year.ToString().Contains(Date));
@@ -49,7 +51,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new SwimmingMeetFormViewModel
             {
                 SwimmingMeet = new SwimmingMeet(),
-                PoolSizeTypes = _context.PoolSizeTypes.ToList()
+                PoolSizeTypes = _swimmingMeetRepository.GetAllPoolSizeTypes()
             };
 
             return View("SwimmingMeetForm", viewModel);
@@ -63,7 +65,7 @@ namespace CollegeRoadApplication.Controllers
                 var viewModel = new SwimmingMeetFormViewModel
                 {
                     SwimmingMeet = swimmingMeet,
-                    PoolSizeTypes = _context.PoolSizeTypes.ToList()
+                    PoolSizeTypes = _swimmingMeetRepository.GetAllPoolSizeTypes()
                 };
 
                 return View("SwimmingMeetForm", viewModel);
@@ -71,11 +73,12 @@ namespace CollegeRoadApplication.Controllers
 
             if (swimmingMeet.Id == 0)
             {
-                _context.SwimmingMeets.Add(swimmingMeet);
+                _swimmingMeetRepository.Add(swimmingMeet);
             }
             else
             {
-                var swimmingMeetInDb = _context.SwimmingMeets.Single(m => m.Id == swimmingMeet.Id);
+                var swimmingMeetInDb = _swimmingMeetRepository.GetSwimmingMeetById(swimmingMeet.Id);
+
 
                 swimmingMeetInDb.Name = swimmingMeet.Name;
                 swimmingMeetInDb.Vanue = swimmingMeet.Vanue;
@@ -84,7 +87,7 @@ namespace CollegeRoadApplication.Controllers
 
             }
 
-            _context.SaveChanges();
+            _swimmingMeetRepository.Save();
 
             return RedirectToAction("Index", "SwimmingMeet");
         }
@@ -94,7 +97,7 @@ namespace CollegeRoadApplication.Controllers
          */
         public ActionResult Edit(int id)
         {
-            var meet = _context.SwimmingMeets.SingleOrDefault(m => m.Id == id);
+            var meet = _swimmingMeetRepository.GetSwimmingMeetInDB(id);
 
             if (meet == null)
             {
@@ -104,7 +107,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new SwimmingMeetFormViewModel
             {
                 SwimmingMeet = meet,
-                PoolSizeTypes = _context.PoolSizeTypes.ToList()
+                PoolSizeTypes = _swimmingMeetRepository.GetAllPoolSizeTypes()
             };
 
             return View("SwimmingMeetForm", viewModel);
@@ -121,7 +124,7 @@ namespace CollegeRoadApplication.Controllers
             }
 
             // It finds the User to be deleted.
-            SwimmingMeet meet = _context.SwimmingMeets.Find(id);
+            SwimmingMeet meet = _swimmingMeetRepository.FindById(id);
 
             if (meet == null)
             {
@@ -141,13 +144,13 @@ namespace CollegeRoadApplication.Controllers
             try
             {
                 // Finds the User
-                SwimmingMeet meet = _context.SwimmingMeets.Find(id);
+                SwimmingMeet meet = _swimmingMeetRepository.FindById(id);
 
                 // Try to remove it
-                _context.SwimmingMeets.Remove(meet);
+                _swimmingMeetRepository.Remove(meet);
 
                 // Save the changes
-                _context.SaveChanges();
+                _swimmingMeetRepository.Save();
             }
             catch
             {

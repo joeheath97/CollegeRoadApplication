@@ -17,11 +17,13 @@ namespace CollegeRoadApplication.DAL
 
         SwimmingMeet GetSwimmingMeetInDB(int id);
 
+        SwimmingMeet FindById(int id);
+
         void Add(SwimmingMeet swimmingMeet);
 
         void Save();
 
-        void Remove(ApplicationUser user);
+        void Remove(SwimmingMeet user);
 
     }
 }
