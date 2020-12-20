@@ -12,14 +12,13 @@
         {
             foreach (var member in Model)
             {
-                if (member.isAllowedToSwim == true)
-                {
+
                     <tr>
                         @*Name > Action > Controller > Param *@
                         <td>@Html.ActionLink(member.Name, "Edit", "Member", new { id = member.Id }, null)</td>
                         <td>@Html.DisplayTextFor(m => member.Age)</td>
                     </tr>
-                }
+
 
             }
         }

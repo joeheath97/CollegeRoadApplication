@@ -1,4 +1,5 @@
-﻿using CollegeRoadApplication.Models;
+﻿using CollegeRoadApplication.DAL;
+using CollegeRoadApplication.Models;
 using CollegeRoadApplication.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
@@ -12,36 +13,41 @@ namespace CollegeRoadApplication.Controllers
 {
     public class MemberController : Controller
     {
-        private ApplicationDbContext _context;
+        private IMemberRepository _memberRepository;
 
         public MemberController()
         {
-            _context = new ApplicationDbContext();
+            _memberRepository = new MemberRepository(new ApplicationDbContext());
+        }
+
+        public MemberController(IMemberRepository memberRepository)
+        {
+            _memberRepository = memberRepository;
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            _memberRepository.Dispose();
         }
 
         // GET: Member
         public ActionResult Index()
         {
-            var users = _context.Users.ToList();
+            var users = _memberRepository.GetAllMembers();
 
             return View(users);
         }
 
         public ActionResult AllSwimmers()
         {
-            var swimmers = _context.Users.ToList();
+            var swimmers = _memberRepository.GetAllMembers();
 
             return View(swimmers);
         }
 
         public ActionResult Archive()
         {
-            var members = _context.Users.Where(m => m.IsArchived == true).ToList();
+            var members = _memberRepository.GetAllArchivedMembers();
 
             return View(members);
         }
@@ -49,7 +55,8 @@ namespace CollegeRoadApplication.Controllers
         public PartialViewResult SearchMembers(string searchText)
         {
 
-            var members = _context.Users.ToList();
+            var members = _memberRepository.GetAllMembers();
+
             var searchResults = members.Where(m => m.Age.ToString().Contains(searchText) || m.Name.ToLower().Contains(searchText.ToLower()));
 
             return PartialView("_MemberFilterGrid", searchResults);
@@ -58,7 +65,8 @@ namespace CollegeRoadApplication.Controllers
         public PartialViewResult SearchSwimmer(string searchText)
         {
 
-            var members = _context.Users.ToList();
+            var members = _memberRepository.GetAllEligibleSwimmers();
+
             var searchResults = members.Where(m => m.Age.ToString().Contains(searchText) || m.Name.ToLower().Contains(searchText.ToLower()));
 
             return PartialView("_SwimmerFilterGrid", searchResults);
@@ -71,7 +79,7 @@ namespace CollegeRoadApplication.Controllers
         public ActionResult Edit(string id)
         {
 
-            var member = _context.Users.SingleOrDefault(m => m.Id == id);
+            var member = _memberRepository.GetMemberById(id);
 
             if (member == null)
             {
@@ -81,7 +89,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new MemberFormViewModel
             {
                 ApplicationUser = member,
-                FamilyGroups = _context.FamilyGroups.ToList()
+                FamilyGroups = _memberRepository.GetAllFamilyGroups()
             };
 
             return View("MemberForm", viewModel);
@@ -95,7 +103,7 @@ namespace CollegeRoadApplication.Controllers
                 var viewModel = new MemberFormViewModel
                 {
                     ApplicationUser = user.ApplicationUser,
-                    FamilyGroups = _context.FamilyGroups.ToList()
+                    FamilyGroups = _memberRepository.GetAllFamilyGroups()
                 };
 
                 return View("MemberForm", viewModel);
@@ -103,11 +111,11 @@ namespace CollegeRoadApplication.Controllers
 
             if(user.ApplicationUser.Id == "")
             {
-                _context.Users.Add(user.ApplicationUser);
+                _memberRepository.Add(user.ApplicationUser);
             }
             else
             {
-                var userInDb = _context.Users.Single(m => m.Id == user.ApplicationUser.Id);
+                var userInDb = _memberRepository.GetMemberInDB(user.ApplicationUser.Id);
 
                 userInDb.Name = user.ApplicationUser.Name;
                 userInDb.UserName = user.ApplicationUser.UserName;
@@ -120,7 +128,7 @@ namespace CollegeRoadApplication.Controllers
                 userInDb.FamilyGroupId = user.ApplicationUser.FamilyGroupId;
             }
 
-            _context.SaveChanges();
+            _memberRepository.Save();
 
             return RedirectToAction("Index", "Member");
         }
@@ -136,7 +144,7 @@ namespace CollegeRoadApplication.Controllers
             }
 
             // It finds the User to be deleted.
-            ApplicationUser user = _context.Users.Find(id);
+            ApplicationUser user = _memberRepository.FindById(id);
 
             if (user == null)
             {
@@ -156,13 +164,13 @@ namespace CollegeRoadApplication.Controllers
             try
             {
                 // Finds the User
-                ApplicationUser user = _context.Users.Find(id);
+                ApplicationUser user = _memberRepository.FindById(id);
 
                 // Try to remove it
-                _context.Users.Remove(user);
+                _memberRepository.Remove(user);
 
                 // Save the changes
-                _context.SaveChanges();
+                _memberRepository.Save();
             }
             catch
             {

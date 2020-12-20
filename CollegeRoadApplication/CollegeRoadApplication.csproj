@@ -175,6 +175,8 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\SwimmingEventController.cs" />
     <Compile Include="Controllers\SwimmingMeetController.cs" />
+    <Compile Include="DAL\IMemberRepository.cs" />
+    <Compile Include="DAL\MemberRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
