@@ -1,0 +1,25 @@
+﻿@model CollegeRoadApplication.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you what to delete this user? </h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<ul>
+    <li>@Html.DisplayNameFor(m => m.Name) : @Html.DisplayFor(m => m.Name)</li>
+    <li>@Html.DisplayNameFor(m => m.UserName) : @Html.DisplayFor(m => m.UserName)</li>
+    <li>@Html.DisplayNameFor(m => m.Email) : @Html.DisplayFor(m => m.Email)</li>
+</ul>
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

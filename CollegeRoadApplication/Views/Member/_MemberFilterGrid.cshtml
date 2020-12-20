@@ -3,8 +3,9 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Age</th>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th>@Html.DisplayNameFor(m => m.Age)</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
                         @*Name > Action > Controller > Param *@
                         <td>@Html.ActionLink(member.Name, "Edit", "Member", new { id = member.Id }, null)</td>
                         <td>@Html.DisplayTextFor(m => member.Age)</td>
+                        <td>@Html.ActionLink("Delete", "Delete", "Member", new { id = member.Id }, null)</td>
                     </tr>
                 }
 

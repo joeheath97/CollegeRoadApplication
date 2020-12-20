@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -122,6 +123,54 @@ namespace CollegeRoadApplication.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Member");
+        }
+
+        // GET: Student/Delete/5
+        public ActionResult Delete(string id)
+        {
+
+            if (id == null)
+            {
+                // returns a bad request
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // It finds the User to be deleted.
+            ApplicationUser user = _context.Users.Find(id);
+
+            if (user == null)
+            {
+                // if doesn't found returns 404
+                return HttpNotFound();
+            }
+            // Returns the Student data to show the details of what will be deleted.
+            return View(user);
+        }
+
+        // POST: Student/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]         //Represents an attribute name of the get Action
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            try
+            {
+                // Finds the User
+                ApplicationUser user = _context.Users.Find(id);
+
+                // Try to remove it
+                _context.Users.Remove(user);
+
+                // Save the changes
+                _context.SaveChanges();
+            }
+            catch
+            {
+                //Log the error add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            return RedirectToAction("Index");
         }
 
     }
