@@ -30,9 +30,6 @@ namespace CollegeRoadApplication.Controllers
          */
         public ActionResult New(int id)
         {
-            var swimmerRoleId = _context.Roles.Where(r => r.Name == "Swimmer").ToString();
-            //var swimmers = _context.Users.Where(u => u.Roles.Any(r => r.RoleId == swimmerRoleId));
-            //var swimmers =  _context.Users.Where(x => x.Roles.Select(y => y.UserId).Contains(swimmerRoleId)).ToList();
 
             var Lane = new Lane();
             Lane.SwimmingEventId = id;
@@ -40,7 +37,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new LaneFormViewModel
             {
                 Lane = Lane,
-                Swimmers = _context.Users.ToList()
+                Swimmers = _context.Users.Where(m => m.isAllowedToSwim == true).ToList()
             };
 
             return View("LaneForm", viewModel);

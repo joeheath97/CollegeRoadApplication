@@ -40,7 +40,7 @@ namespace CollegeRoadApplication.Controllers
 
         public ActionResult Archive()
         {
-            var members = _context.Users.ToList();
+            var members = _context.Users.Where(m => m.IsArchived == true).ToList();
 
             return View(members);
         }
