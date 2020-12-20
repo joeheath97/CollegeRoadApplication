@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -107,6 +108,54 @@ namespace CollegeRoadApplication.Controllers
             };
 
             return View("SwimmingMeetForm", viewModel);
+        }
+
+        // GET: Student/Delete/5
+        public ActionResult Delete(int id)
+        {
+
+            if (String.IsNullOrEmpty(id.ToString()))
+            {
+                // returns a bad request
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // It finds the User to be deleted.
+            SwimmingMeet meet = _context.SwimmingMeets.Find(id);
+
+            if (meet == null)
+            {
+                // if doesn't found returns 404
+                return HttpNotFound();
+            }
+            // Returns the Student data to show the details of what will be deleted.
+            return View(meet);
+        }
+
+        // POST: Student/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]         //Represents an attribute name of the get Action
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                // Finds the User
+                SwimmingMeet meet = _context.SwimmingMeets.Find(id);
+
+                // Try to remove it
+                _context.SwimmingMeets.Remove(meet);
+
+                // Save the changes
+                _context.SaveChanges();
+            }
+            catch
+            {
+                //Log the error add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

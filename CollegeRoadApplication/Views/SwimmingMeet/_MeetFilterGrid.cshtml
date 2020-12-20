@@ -7,6 +7,7 @@
             <th>Date</th>
             <th>Events</th>
             <th>Venue</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,7 @@
                     <td>
                         @meet.Vanue
                     </td>
+                    <td>@Html.ActionLink("Delete", "Delete", "SwimmingMeet", new { id = meet.Id }, null)</td>
                 </tr>
             }
         }

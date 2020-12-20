@@ -176,7 +176,9 @@
     <Compile Include="Controllers\SwimmingEventController.cs" />
     <Compile Include="Controllers\SwimmingMeetController.cs" />
     <Compile Include="DAL\IMemberRepository.cs" />
+    <Compile Include="DAL\ISwimmingMeetRepository.cs" />
     <Compile Include="DAL\MemberRepository.cs" />
+    <Compile Include="DAL\SwimmingMeetRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -313,6 +315,7 @@
     <Content Include="Views\Shared\_NavBarSwimmer.cshtml" />
     <Content Include="Views\SwimmingEvent\PersonalIndex.cshtml" />
     <Content Include="Views\Member\Delete.cshtml" />
+    <Content Include="Views\SwimmingMeet\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
