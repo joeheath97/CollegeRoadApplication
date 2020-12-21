@@ -9,21 +9,27 @@ using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net;
+using CollegeRoadApplication.DAL;
 
 namespace CollegeRoadApplication.Controllers
 {
     public class SwimmingEventController : Controller
     {
-        private ApplicationDbContext _context;
+        private ISwimmingEventRepository _swimmingEventRepository;
 
         public SwimmingEventController()
         {
-            _context = new ApplicationDbContext();
+            _swimmingEventRepository = new SwimmingEventRepository(new ApplicationDbContext());
+        }
+
+        public SwimmingEventController(ISwimmingEventRepository swimmingEventRepository)
+        {
+            _swimmingEventRepository = swimmingEventRepository;
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            _swimmingEventRepository.Dispose();
         }
 
         // GET: SwimmingEvent
@@ -36,14 +42,15 @@ namespace CollegeRoadApplication.Controllers
             {
                 var currentUserId = User.Identity.GetUserId();
 
-                var lanes = _context.Lanes.Where(m => m.ApplicationUserId == currentUserId).ToList();
+                var lanes = _swimmingEventRepository.GetMemberEventLanes(currentUserId);
 
                 var swimmingEvents = new List<SwimmingEvent>();
 
                 foreach (var lane in lanes)
                 {
-                    swimmingEvents.Add(_context.SwimmingEvents.Single(l => l.Id == lane.SwimmingEventId));
-                    
+                    // should be single and defualt > instead of single 
+                    swimmingEvents.Add(_swimmingEventRepository.GetSwimmingEventById(lane.SwimmingEventId));
+
                 }
 
                 return View("PersonalIndex", swimmingEvents);
@@ -51,7 +58,7 @@ namespace CollegeRoadApplication.Controllers
             }
             else
             {
-                var events = _context.SwimmingEvents.ToList();
+                var events = _swimmingEventRepository.GetAllSwimmingEvents();
 
                 return View(events);
             }
@@ -67,8 +74,8 @@ namespace CollegeRoadApplication.Controllers
         {
             var viewModel = new AllMeetEventsViewModel
             {
-                SwimmingMeet = _context.SwimmingMeets.Single(e => e.Id == id),
-                SwimmingEvents = _context.SwimmingEvents.Where(e => e.SwimmingMeetId == id)
+                SwimmingMeet = _swimmingEventRepository.GetSwimmingMeetById(id),
+                SwimmingEvents = _swimmingEventRepository.GetAllMeetEvents(id)
             };
 
             return View("AllMeetEvents", viewModel);
@@ -77,7 +84,7 @@ namespace CollegeRoadApplication.Controllers
         [AllowAnonymous]
         public PartialViewResult SearchEvent(string distance, string age, string gender)
         {
-            var events = _context.SwimmingEvents.ToList();
+            var events = _swimmingEventRepository.GetAllSwimmingEvents();
             var results = events.Where(e => e.Distance.ToLower().Contains(distance));
             results = results.Where(e => e.AgeRange.ToLower().Contains(age.ToLower()))
                              .Where(e => e.Gender.ToLower().StartsWith(gender.ToLower()));
@@ -92,7 +99,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new SwimmingEventFormViewModel
             {
                 SwimmingEvent = new SwimmingEvent(),
-                SwimmingMeets = _context.SwimmingMeets.ToList()
+                SwimmingMeets = _swimmingEventRepository.GetAllSwimmingMeets()
 
             };
 
@@ -107,7 +114,7 @@ namespace CollegeRoadApplication.Controllers
                 var viewModel = new SwimmingEventFormViewModel
                 {
                     SwimmingEvent = swimmingEvent,
-                    SwimmingMeets = _context.SwimmingMeets.ToList()
+                    SwimmingMeets = _swimmingEventRepository.GetAllSwimmingMeets()
                 };
 
                 return View("SwimmingEventForm", viewModel);
@@ -115,11 +122,11 @@ namespace CollegeRoadApplication.Controllers
 
             if (swimmingEvent.Id == 0)
             {
-                _context.SwimmingEvents.Add(swimmingEvent);
+                _swimmingEventRepository.Add(swimmingEvent);
             }
             else
             {
-                var swimmingEventInDb = _context.SwimmingEvents.Single(e => e.Id == swimmingEvent.Id);
+                var swimmingEventInDb = _swimmingEventRepository.GetSwimmingEventInDb(swimmingEvent.Id);
 
                 swimmingEventInDb.Name = swimmingEvent.Name;
                 swimmingEventInDb.SwimmingMeetId = swimmingEvent.SwimmingMeetId;
@@ -132,7 +139,7 @@ namespace CollegeRoadApplication.Controllers
 
             }
 
-            _context.SaveChanges();
+            _swimmingEventRepository.Save();
 
             return RedirectToAction("Index", "SwimmingEvent");
         }
@@ -143,8 +150,8 @@ namespace CollegeRoadApplication.Controllers
         [AllowAnonymous]
         public ActionResult Edit(int id)
         {
-            var race = _context.SwimmingEvents.Include(c => c.SwimmingMeet).SingleOrDefault(r => r.Id == id);
-            race.Lanes = _context.Lanes.Include(u => u.ApplicationUser).Where(c => c.SwimmingEventId == id).ToList();
+            var race = _swimmingEventRepository.GetSwimmingEventIncludeMeetById(id);
+            race.Lanes = _swimmingEventRepository.GetAllLanesIncludeUser(id);
 
             if (race == null)
             {
@@ -154,7 +161,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new SwimmingEventFormViewModel
             {
                 SwimmingEvent = race,
-                SwimmingMeets = _context.SwimmingMeets.ToList()
+                SwimmingMeets = _swimmingEventRepository.GetAllSwimmingMeets()
             };
 
             if (User.IsInRole("Admin") || User.IsInRole("SCO"))
@@ -181,7 +188,7 @@ namespace CollegeRoadApplication.Controllers
             }
 
             // It finds the User to be deleted.
-            SwimmingEvent swimmingEvent = _context.SwimmingEvents.Find(id);
+            SwimmingEvent swimmingEvent = _swimmingEventRepository.Find(id);
 
             if (swimmingEvent == null)
             {
@@ -201,13 +208,14 @@ namespace CollegeRoadApplication.Controllers
             try
             {
                 // Finds the User
-                SwimmingEvent swimmingEvent = _context.SwimmingEvents.Find(id);
+                SwimmingEvent swimmingEvent = _swimmingEventRepository.Find(id);
 
                 // Try to remove it
-                _context.SwimmingEvents.Remove(swimmingEvent);
+
+                _swimmingEventRepository.Remove(swimmingEvent);
 
                 // Save the changes
-                _context.SaveChanges();
+                _swimmingEventRepository.Save();
             }
             catch
             {

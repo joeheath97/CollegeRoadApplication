@@ -19,15 +19,17 @@ else
         <thead>
             <tr>
                 <th>Family Groups</th>
+                <th></th>
             </tr>
         </thead>
 
         <tbody>
             @foreach (var familyGroup in Model)
             {
-                <tr>
-                    <td>@Html.ActionLink(familyGroup.Name, "Edit", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
-                </tr>
+            <tr>
+                <td>@Html.ActionLink(familyGroup.Name, "Edit", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
+                <td>@Html.ActionLink("Delete", "Delete", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
+            </tr>
             }
 
         </tbody>

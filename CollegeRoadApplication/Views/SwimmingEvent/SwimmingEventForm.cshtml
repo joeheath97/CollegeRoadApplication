@@ -44,9 +44,13 @@
         @Html.ValidationMessageFor(e => e.SwimmingEvent.Round)
     </div>
 
-    <p>
-        @Html.ActionLink("Add Lane", "New", "Lane", new { id = Model.SwimmingEvent.Id }, new { @class = "btn btn-primary" })
-    </p>
+    if (Model.Title == "Edit")
+    {
+        <p>
+            @Html.ActionLink("Add Lane", "New", "Lane", new { id = Model.SwimmingEvent.Id }, new { @class = "btn btn-primary" })
+        </p>
+    }
+
     if (Model.SwimmingEvent.Lanes != null)
     {
         <table class="table table-bordered table-hover">
