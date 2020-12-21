@@ -63,7 +63,7 @@ namespace CollegeRoadApplication.Controllers
                 return View(events);
             }
 
-            
+
         }
 
         /**

@@ -59,6 +59,7 @@
                     <th>Lane</th>
                     <th>Swimmer Name</th>
                     <th>Results</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -67,11 +68,12 @@
 
                     foreach (var lane in Model.SwimmingEvent.Lanes)
                     {
-                        <tr>
-                            <td>@count</td>
-                            <td>@Html.ActionLink(lane.ApplicationUser.Name, "Edit", "Lane", new { id = lane.Id })</td>
-                            <td>@lane.Result</td>
-                        </tr>
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@Html.ActionLink(lane.ApplicationUser.Name, "Edit", "Lane", new { id = lane.Id }, null)</td>
+                                    <td>@lane.Result</td>
+                                    <td>@Html.ActionLink("Delete", "Delete", "Lane", new { id = lane.Id }, null)</td>
+                                </tr>
                         count = count + 1;
                     }
                 }

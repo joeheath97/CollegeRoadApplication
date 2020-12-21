@@ -322,6 +322,7 @@
     <Content Include="Views\SwimmingMeet\Delete.cshtml" />
     <Content Include="Views\SwimmingEvent\Delete.cshtml" />
     <Content Include="Views\FamilyGroup\Delete.cshtml" />
+    <Content Include="Views\Lane\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

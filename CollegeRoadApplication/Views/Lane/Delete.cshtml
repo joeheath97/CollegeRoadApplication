@@ -1,0 +1,24 @@
+﻿@model CollegeRoadApplication.Models.Lane
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you what to delete this Lane entry? </h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <ul>
+        <li>@Html.DisplayNameFor(m => m.Id) : @Html.DisplayFor(m => m.Id)</li>
+        <li>@Html.DisplayNameFor(m => m.Result) : @Html.DisplayFor(m => m.Result)</li>
+
+    </ul>
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
