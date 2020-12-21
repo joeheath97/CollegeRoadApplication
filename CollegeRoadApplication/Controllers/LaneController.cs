@@ -1,4 +1,5 @@
-﻿using CollegeRoadApplication.Models;
+﻿using CollegeRoadApplication.DAL;
+using CollegeRoadApplication.Models;
 using CollegeRoadApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,22 @@ namespace CollegeRoadApplication.Controllers
 {
     public class LaneController : Controller
     {
-        private ApplicationDbContext _context;
+
+        private ILaneRepository _laneRepository;
 
         public LaneController()
         {
-            _context = new ApplicationDbContext();
+            _laneRepository = new LaneRepository(new ApplicationDbContext());
+        }
+
+        public LaneController(ILaneRepository laneRepository)
+        {
+            _laneRepository = laneRepository;
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            _laneRepository.Dispose();
         }
 
         // GET: Lane
@@ -38,7 +45,8 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new LaneFormViewModel
             {
                 Lane = Lane,
-                Swimmers = _context.Users.Where(m => m.isAllowedToSwim == true).ToList()
+                Swimmers = _laneRepository.GetAllEligiableSwimmers()
+                
             };
 
             return View("LaneForm", viewModel);
@@ -50,18 +58,18 @@ namespace CollegeRoadApplication.Controllers
 
             if (lane.Id == 0)
             {
-                _context.Lanes.Add(lane);
+                _laneRepository.Add(lane);
             }
             else
             {
-                var laneInDb = _context.Lanes.Single(l => l.Id == lane.Id);
+                var laneInDb = _laneRepository.GetLaneInDb(lane.Id);
 
                 laneInDb.ApplicationUserId = lane.ApplicationUserId;
                 laneInDb.Result = lane.Result;
                 laneInDb.SwimmingEventId = lane.SwimmingEventId;
             }
 
-            _context.SaveChanges();
+            _laneRepository.Save();
 
             return RedirectToAction("Edit", "SwimmingEvent", new { id = lane.SwimmingEventId });
         }
@@ -72,7 +80,7 @@ namespace CollegeRoadApplication.Controllers
          */
         public ActionResult Edit(int id)
         {
-            var lane = _context.Lanes.SingleOrDefault(c => c.Id == id);
+            var lane = _laneRepository.GetLaneById(id);
 
             if (lane == null)
             {
@@ -82,7 +90,7 @@ namespace CollegeRoadApplication.Controllers
             var viewModel = new LaneFormViewModel
             {
                 Lane = lane,
-                Swimmers = _context.Users.ToList()
+                Swimmers = _laneRepository.GetAllEligiableSwimmers()
             };
 
             return View("LaneForm", viewModel);
@@ -99,7 +107,7 @@ namespace CollegeRoadApplication.Controllers
             }
 
             // It finds the User to be deleted.
-            Lane lane = _context.Lanes.Find(id);
+            Lane lane = _laneRepository.FindById(id);
 
             if (lane == null)
             {
@@ -118,15 +126,12 @@ namespace CollegeRoadApplication.Controllers
         {
             try
             {
-                // Finds the User
-                Lane lane = _context.Lanes.Find(id);
+                Lane lane = _laneRepository.FindById(id);
 
-                // Try to remove it
+                _laneRepository.Remove(lane);
 
-                _context.Lanes.Remove(lane);
+                _laneRepository.Save();
 
-                // Save the changes
-                _context.SaveChanges();
             }
             catch
             {
