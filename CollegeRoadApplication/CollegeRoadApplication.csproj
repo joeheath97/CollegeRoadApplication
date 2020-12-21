@@ -175,6 +175,8 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\SwimmingEventController.cs" />
     <Compile Include="Controllers\SwimmingMeetController.cs" />
+    <Compile Include="DAL\FamilyGroupRepository.cs" />
+    <Compile Include="DAL\IFamilyGroupRepository.cs" />
     <Compile Include="DAL\IMemberRepository.cs" />
     <Compile Include="DAL\ISwimmingEventRepository.cs" />
     <Compile Include="DAL\ISwimmingMeetRepository.cs" />

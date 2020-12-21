@@ -1,4 +1,5 @@
-﻿using CollegeRoadApplication.Models;
+﻿using CollegeRoadApplication.DAL;
+using CollegeRoadApplication.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,32 +12,36 @@ namespace CollegeRoadApplication.Controllers
 {
     public class FamilyGroupController : Controller
     {
-        private ApplicationDbContext _context;
+        private IFamilyGroupRepository _familyGroupRepository;
 
         public FamilyGroupController()
         {
-            // this creates a connection to the database
-            _context = new ApplicationDbContext();
+            _familyGroupRepository = new FamilyGroupRepository(new ApplicationDbContext());
+        }
+
+        public FamilyGroupController(IFamilyGroupRepository familyGroupRepository)
+        {
+            _familyGroupRepository = familyGroupRepository;
         }
 
         protected override void Dispose(bool disposing)
         {
             // this release the connection 
-            _context.Dispose();
+            _familyGroupRepository.Dispose();
         }
 
         // GET: FamilyGroup
         public ActionResult Index()
         {
-            var familyGroup = _context.FamilyGroups.ToList();
+            var familyGroup = _familyGroupRepository.GetAllFamilyGroups();
 
             if (User.IsInRole("Parent"))
             {
                 var currentUserId = User.Identity.GetUserId();
 
-                var user = _context.Users.Single(m => m.Id == currentUserId);
+                var user = _familyGroupRepository.GetUserById(currentUserId);
 
-                var linkedFamilyGroup = _context.FamilyGroups.Where(m => m.Id == user.FamilyGroupId);
+                var linkedFamilyGroup = _familyGroupRepository.GetUserFamilyGroup(user.FamilyGroupId);
 
                 return View(linkedFamilyGroup);
             }
@@ -63,15 +68,17 @@ namespace CollegeRoadApplication.Controllers
 
             if (familyGroup.Id == 0)
             {
-                _context.FamilyGroups.Add(familyGroup);
+                _familyGroupRepository.Add(familyGroup);
             }
             else
             {
-                var failyGroupInDb = _context.FamilyGroups.Single(f => f.Id == familyGroup.Id);
-                familyGroup.Name = familyGroup.Name;
+                var familyGroupInDb = _familyGroupRepository.GetFamilyGroupInDb(familyGroup.Id);
+
+                familyGroupInDb.Name = familyGroup.Name;
 
             }
-            _context.SaveChanges();
+
+            _familyGroupRepository.Save();
 
             return RedirectToAction("Index", "FamilyGroup");
         }
@@ -81,8 +88,10 @@ namespace CollegeRoadApplication.Controllers
          */
         public ActionResult Edit(int id)
         {
-            var familygroup = _context.FamilyGroups.SingleOrDefault(c => c.Id == id);
-            familygroup.Members = _context.Users.Where(m => m.FamilyGroupId == id).ToList();
+            var familygroup = _familyGroupRepository.GetFamilyGroupById(id);
+          
+            familygroup.Members = _familyGroupRepository.GetMembersInFamilyGroup(id);
+            
             //familygroup.Parents = _context.Parents.Where(m => m.FamilyGroupId == id).ToList();
 
             if (familygroup == null)
@@ -104,7 +113,7 @@ namespace CollegeRoadApplication.Controllers
             }
 
             // It finds the User to be deleted.
-            FamilyGroup familyGroup = _context.FamilyGroups.Find(id);
+            FamilyGroup familyGroup = _familyGroupRepository.FindById(id);
 
             if (familyGroup == null)
             {
@@ -124,13 +133,14 @@ namespace CollegeRoadApplication.Controllers
             try
             {
                 // Finds the User
-                FamilyGroup familyGroup = _context.FamilyGroups.Find(id);
+                FamilyGroup familyGroup = _familyGroupRepository.FindById(id);
+
 
                 // Try to remove it
-                _context.FamilyGroups.Remove(familyGroup);
+                _familyGroupRepository.Remove(familyGroup);
 
                 // Save the changes
-                _context.SaveChanges();
+                _familyGroupRepository.Save();
             }
             catch
             {
