@@ -5,6 +5,7 @@
         <tr>
             <th>@Html.DisplayNameFor(m => m.Name)</th>
             <th>@Html.DisplayNameFor(m => m.Distance)</th>
+            <th>@Html.DisplayNameFor(m => m.Stroke)</th>
             <th>@Html.DisplayNameFor(m => m.AgeRange)</th>
             <th>@Html.DisplayNameFor(m => m.Gender)</th>
             <td></td>
@@ -18,6 +19,7 @@
         <tr>
             <td>@Html.ActionLink(race.Name, "Edit", "SwimmingEvent", new { id = race.Id }, null)</td>
             <td>@race.Distance</td>
+            <td>@race.Stroke</td>
             <td>@race.AgeRange</td>
             <td>@race.Gender</td>
             <td>@Html.ActionLink("Delete", "Delete", "SwimmingEvent", new { id = race.Id }, null)</td>

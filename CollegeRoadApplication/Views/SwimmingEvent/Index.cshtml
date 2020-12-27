@@ -17,6 +17,7 @@
         <div class="form-inline pull-right">
             <label>Search</label>
             <input type="text" class="form-control" id="txtSearchDistance" placeholder="By Distance" />
+            <input type="text" class="form-control" id="txtSearchStroke" placeholder="By Stroke" />
             <input type="text" class="form-control" id="txtSearchAge" placeholder="By Age" />
             <input type="text" class="form-control" id="txtSearchGender" placeholder="By Gender" />
             <br />
@@ -55,6 +56,9 @@ else
             getEvent();
         });
 
+        $('#txtSearchStroke').on('keyup', () => {
+            getEvent();
+        });
     });
 
     function getEvent() {
@@ -65,7 +69,8 @@ else
             data: {
                 distance: $('#txtSearchDistance').val(),
                 age: $('#txtSearchAge').val(),
-                gender: $('#txtSearchGender').val()
+                gender: $('#txtSearchGender').val(),
+                stroke: $('#txtSearchStroke').val()
             },
             success: function (res) {
                 $('#grdEvent').html('').html(res);
