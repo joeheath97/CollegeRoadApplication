@@ -17,19 +17,27 @@
             </tr>
         </thead>
         <tbody>
-            @{
-                int count = 1;
+            @if (Model.SwimmingEvent.Lanes.Count == 0)
+            {
+                <tr><td colspan="3" class="text-center warning">No Results Found</td></tr>
+            }
+            else
+            {
+                
+                    int count = 1;
 
-                foreach (var lane in Model.SwimmingEvent.Lanes)
-                {
+                    foreach (var lane in Model.SwimmingEvent.Lanes)
+                    {
                         <tr>
                             <td>@count</td>
                             <td>@lane.ApplicationUser.Name</td>
                             <td>@lane.Result</td>
                         </tr>
-                    count = count + 1;
-                }
+                        count = count + 1;
+                    }
+                
             }
+
         </tbody>
     </table>
 }
