@@ -24,6 +24,7 @@ namespace UnitTestCollegeRoadSwimmingClub.DAL
             _mockRepository = new Mock<IFamilyGroupRepository>();
 
             familyGroup1 = new FamilyGroup { Id = 1, Name = "Heath's", Members = null};
+            
 
             //Edit
             _mockRepository.Setup(m => m.GetFamilyGroupById(1)).Returns(familyGroup1);
@@ -115,5 +116,45 @@ namespace UnitTestCollegeRoadSwimmingClub.DAL
             Assert.IsInstanceOfType(detailsResult, typeof(RedirectToRouteResult));
         }
 
+        // << -------- MODEL --------> 
+        [TestMethod]
+        public void Validate_FamilyGroupModel_Valid_Test()
+        {
+
+            var familyGroup1 = new FamilyGroup 
+            { 
+                Id = 1, 
+                Name = "Heath's", 
+                Members = null 
+            };
+
+            // Act
+            var validationResults = new List<ValidationResult>();
+            var actual = Validator.TryValidateObject(familyGroup1, new ValidationContext(familyGroup1), validationResults, true);
+
+            // Assert
+            Assert.IsTrue(actual, "Expected validation to succeed.");
+            Assert.AreEqual(0, validationResults.Count, "Unexpected number of validation errors.");
+        }
+
+
+        [TestMethod]
+        public void Validate_FamilyGroupModel_MakeRequired_Test()
+        {
+            // Assemble
+            var familyGroup1 = new FamilyGroup
+            {
+                Id = 1,
+                Name = "",
+                Members = null
+            };
+
+            // Act
+            var validationResults = new List<ValidationResult>();
+            var actual = Validator.TryValidateObject(familyGroup1, new ValidationContext(familyGroup1), validationResults, true);
+
+            // Assert
+            Assert.IsFalse(actual, "Expected validation to fail."); // Fail becasue Name is required
+        }
     }
 }
