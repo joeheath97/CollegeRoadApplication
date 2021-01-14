@@ -13,14 +13,6 @@
         {
             @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
         }
-
-        @*<div class="form-inline pull-right">
-            <label>Search</label>
-            <input type="text" class="form-control" id="txtSearchDistance" placeholder="By Distance" />
-            <input type="text" class="form-control" id="txtSearchAge" placeholder="By Age" />
-            <input type="text" class="form-control" id="txtSearchGender" placeholder="By Gender" />
-            <br />
-        </div>*@
     </div>
 </div>
 
@@ -34,7 +26,7 @@ else
 {
     <br />
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="bg-info">
             <tr>
                 <th>Event</th>
                 <th>Distance</th>
@@ -64,43 +56,3 @@ else
     </table>
 }
 
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-
-    $(() => {
-        getEvent();
-
-        $('#txtSearchDistance').on('keyup', () => {
-            getEvent();
-        });
-
-        $('#txtSearchAge').on('keyup', () => {
-            getEvent();
-        });
-
-        $('#txtSearchGender').on('keyup', () => {
-            getEvent();
-        });
-
-    });
-
-    function getEvent() {
-        $.ajax({
-            url: '@Url.Action("SearchEvent", "SwimmingEvent")',
-            datatype: 'html',
-            method: 'GET',
-            data: {
-                distance: $('#txtSearchDistance').val(),
-                age: $('#txtSearchAge').val(),
-                gender: $('#txtSearchGender').val()
-            },
-            success: function (res) {
-                $('#grdEvent').html('').html(res);
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
-    }
-</script>*@

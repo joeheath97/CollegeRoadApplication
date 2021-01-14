@@ -5,11 +5,12 @@
 }
 
 <h2>@Model.SwimmingEvent.Name Swimming Event - Round: @Model.SwimmingEvent.Round</h2>
+<hr />
 
 @if (Model.SwimmingEvent.Lanes != null)
 {
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="bg-info">
             <tr>
                 <th>Lane</th>
                 <th>Swimmer Name</th>

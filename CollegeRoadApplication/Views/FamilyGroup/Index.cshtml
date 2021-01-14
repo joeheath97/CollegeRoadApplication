@@ -4,9 +4,14 @@
 }
 
 <h2>Family Groups</h2>
-<p>
-    @Html.ActionLink("New Family Group", "New", "FamilyGroup", null, new { @class = "btn btn-primary" })
-</p>
+@if (User.IsInRole("Admin") || User.IsInRole("SCO"))
+{
+    <p>
+        @Html.ActionLink("New Family Group", "New", "FamilyGroup", null, new { @class = "btn btn-primary" })
+    </p>
+}
+
+<hr />
 
 @if (!Model.Any())
 {
@@ -16,7 +21,7 @@ else
 {
 
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="bg-info">
             <tr>
                 <th>Family Groups</th>
                 <th></th>
@@ -26,10 +31,10 @@ else
         <tbody>
             @foreach (var familyGroup in Model)
             {
-            <tr>
-                <td>@Html.ActionLink(familyGroup.Name, "Edit", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
-                <td>@Html.ActionLink("Delete", "Delete", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
-            </tr>
+                <tr>
+                    <td>@Html.ActionLink(familyGroup.Name, "Edit", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "FamilyGroup", new { Id = familyGroup.Id }, null)</td>
+                </tr>
             }
 
         </tbody>

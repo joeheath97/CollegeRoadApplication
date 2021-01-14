@@ -19,7 +19,7 @@ namespace CollegeRoadApplication.Models
 
         public string Vanue { get; set; }
 
-        [Display(Name = "Date of Meet")]
+        [Display(Name = "Date of Meet (dd/MM/yyyy)")]
         public DateTime Date { get; set; }
 
         public virtual ICollection<SwimmingEvent> SwimmingEvents { get; set; } // Collection Navigation property > Swimming Meet can have multiple events

@@ -167,7 +167,7 @@ namespace CollegeRoadApplication.Controllers
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
     
                     //Assign Role to User      
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);

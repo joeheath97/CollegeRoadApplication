@@ -9,7 +9,7 @@
 {
     <div class="form-group">
         @Html.LabelFor(l => l.Lane.ApplicationUserId)
-        @Html.DropDownListFor(l => l.Lane.ApplicationUserId, new SelectList(Model.Swimmers, "Id", "Name"), "Member", new { @class = "form-control" })
+        @Html.DropDownListFor(l => l.Lane.ApplicationUserId, new SelectList(Model.Swimmers, "Id", "Name"), "Swimmer", new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(l => l.Lane.Result)

@@ -27,7 +27,7 @@ namespace CollegeRoadApplication.DAL
 
         public ICollection<ApplicationUser> GetMembersInFamilyGroup(int id)
         {
-            return _context.Users.Where(m => m.FamilyGroupId == id).ToList();
+            return _context.Users.Where(m => m.FamilyGroupId == id).OrderBy(x => x.UserName).ToList();
         }
 
         public FamilyGroup GetFamilyGroupInDb(int id)

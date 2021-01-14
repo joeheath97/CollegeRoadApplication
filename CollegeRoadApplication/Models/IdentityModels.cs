@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -19,6 +20,7 @@ namespace CollegeRoadApplication.Models
 
         public string Name { get; set; }
 
+        //[RegularExpression(@"^(?:male|Male|female|Female)$", ErrorMessage = "Please enter Male or Female")]
         public string Gender { get; set; }
 
         public string ContactNumber { get; set; }
@@ -29,6 +31,7 @@ namespace CollegeRoadApplication.Models
 
         public bool IsArchived { get; set; }
 
+        [Display(Name = "Family Group")]
         public int? FamilyGroupId { get; set; } // Foregin Key
 
         public FamilyGroup FamilyGroup { get; set; } // Single Nav reference

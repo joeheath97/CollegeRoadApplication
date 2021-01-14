@@ -94,6 +94,19 @@ namespace CollegeRoadApplication.Controllers
 
         }
 
+        [AllowAnonymous]
+        public PartialViewResult SearchMeetEvent(string distance, string age, string gender, string stroke)
+        {
+            var events = _swimmingEventRepository.GetAllSwimmingEvents();
+            var results = events.Where(e => e.Distance.ToLower().Contains(distance));
+            results = results.Where(e => e.AgeRange.ToLower().Contains(age.ToLower()))
+                             .Where(e => e.Gender.ToLower().StartsWith(gender.ToLower()))
+                             .Where(e => e.Stroke.ToLower().StartsWith(stroke.ToLower()));
+
+            return PartialView("_MeetEventFilterGrid", results);
+
+        }
+
         public ActionResult New()
         {
 

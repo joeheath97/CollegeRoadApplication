@@ -4,8 +4,8 @@
     ViewBag.Title = "Archive";
 }
 
-<h2>Archive</h2>
-
+<h2>Archived Members</h2>
+<hr />
 @if (!Model.Any())
 {
     <p>No Members have been archived</p>
@@ -14,7 +14,7 @@ else
 {
 
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="bg-info">
             <tr>
                 <th>Name</th>
             </tr>

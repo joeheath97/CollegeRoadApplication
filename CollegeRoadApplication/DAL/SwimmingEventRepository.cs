@@ -28,7 +28,7 @@ namespace CollegeRoadApplication.DAL
 
         public IEnumerable<SwimmingEvent> GetAllSwimmingEvents()
         {
-            return _context.SwimmingEvents.ToList();
+            return _context.SwimmingEvents.Include(x => x.SwimmingMeet).ToList();
         }
 
         public IEnumerable<Lane> GetMemberEventLanes(string currentUserId)

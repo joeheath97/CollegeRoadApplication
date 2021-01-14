@@ -5,10 +5,17 @@
 
 <h2>All Events for @Model.SwimmingMeet.Name</h2>
 
-@if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
-{
-    @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
-}
+
+<div class="row">
+    <div class="col-sm-12">
+        @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+        {
+            @Html.ActionLink("New Event", "New", "SwimmingEvent", null, new { @class = "btn btn-primary" })
+        }
+
+    </div>
+</div>
+<hr />
 
 @if (!Model.SwimmingEvents.Any())
 {
@@ -19,7 +26,7 @@
 else
 {
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="bg-info">
             <tr>
                 <th>Event</th>
                 <th>Distance</th>

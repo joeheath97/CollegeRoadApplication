@@ -46,7 +46,7 @@ namespace CollegeRoadApplication.Controllers
             var meets = _swimmingMeetRepository.GetAllSwimmingMeets();
 
             var results = meets.Where(v => v.Vanue.ToLower().Contains(venue.ToLower()));
-            results = results.Where(v => v.Date.Year.ToString().Contains(Date));
+            results = results.Where(v => v.Date.ToString().Contains(Date));
 
             return PartialView("_MeetFilterGrid", results);
         }

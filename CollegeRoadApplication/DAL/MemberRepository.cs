@@ -17,7 +17,7 @@ namespace CollegeRoadApplication.DAL
 
         public IEnumerable<ApplicationUser> GetAllMembers()
         {
-            return _context.Users.ToList();
+            return _context.Users.Where(x => x.UserName != "Admin").ToList();
         }
         public IEnumerable<ApplicationUser> GetAllEligibleSwimmers()
         {
