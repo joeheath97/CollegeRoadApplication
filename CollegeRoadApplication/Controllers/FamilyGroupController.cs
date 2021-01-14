@@ -90,7 +90,6 @@ namespace CollegeRoadApplication.Controllers
         {
             var familygroup = _familyGroupRepository.GetFamilyGroupById(id);
           
-            familygroup.Members = _familyGroupRepository.GetMembersInFamilyGroup(id);
             
             //familygroup.Parents = _context.Parents.Where(m => m.FamilyGroupId == id).ToList();
 
@@ -98,6 +97,8 @@ namespace CollegeRoadApplication.Controllers
             {
                 return HttpNotFound();
             }
+
+            familygroup.Members = _familyGroupRepository.GetMembersInFamilyGroup(id);
 
             return View("FamilyGroupForm", familygroup);
         }

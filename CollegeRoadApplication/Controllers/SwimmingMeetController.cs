@@ -82,7 +82,7 @@ namespace CollegeRoadApplication.Controllers
             }
             else
             {
-                var swimmingMeetInDb = _swimmingMeetRepository.GetSwimmingMeetById(swimmingMeet.Id);
+                var swimmingMeetInDb = _swimmingMeetRepository.GetSwimmingMeetInDB(swimmingMeet.Id);
 
 
                 swimmingMeetInDb.Name = swimmingMeet.Name;
@@ -102,7 +102,7 @@ namespace CollegeRoadApplication.Controllers
          */
         public ActionResult Edit(int id)
         {
-            var meet = _swimmingMeetRepository.GetSwimmingMeetInDB(id);
+            var meet = _swimmingMeetRepository.GetSwimmingMeetById(id);
 
             if (meet == null)
             {

@@ -7,7 +7,10 @@
             <th>@Html.DisplayNameFor(model => model.Date)</th>
             <th>Events</th>
             <th>@Html.DisplayNameFor(model => model.Vanue)</th>
-            <th></th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -15,26 +18,31 @@
         {
             foreach (var meet in Model)
             {
-                <tr>
-                    @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
-                    {
-                        <td>@Html.ActionLink(meet.Name, "Edit", "SwimmingMeet", new { id = meet.Id }, null)</td>
-                    }
-                    else
-                    {
-                        <td>@meet.Name</td>
-                    }
-                    <td>
-                        @meet.Date.ToShortDateString()
-                    </td>
-                    <td>
-                        @Html.ActionLink(meet.Name, "AllMeetEvents", "SwimmingEvent", new { id = meet.Id }, null)
-                    </td>
-                    <td>
-                        @meet.Vanue
-                    </td>
-                    <td>@Html.ActionLink("Delete", "Delete", "SwimmingMeet", new { id = meet.Id }, null)</td>
-                </tr>
+        <tr>
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+            {
+                <td>@Html.ActionLink(meet.Name, "Edit", "SwimmingMeet", new { id = meet.Id }, null)</td>
+
+            }
+            else
+            {
+                <td>@meet.Name</td>
+            }
+            <td>
+                @meet.Date.ToShortDateString()
+            </td>
+            <td>
+                @Html.ActionLink(meet.Name, "AllMeetEvents", "SwimmingEvent", new { id = meet.Id }, null)
+            </td>
+            <td>
+                @meet.Vanue
+            </td>
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("SCO"))
+            {
+                <td>@Html.ActionLink("Delete", "Delete", "SwimmingMeet", new { id = meet.Id }, null)</td>
+            }
+
+        </tr>
             }
         }
         else
