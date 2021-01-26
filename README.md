@@ -4,20 +4,21 @@ Swimming club application for creating swimming meets, event, races. Creating Sw
 
 This is an ASP.Net MVC Framework application containing:
 
-MVC design pattern
-Entity framework
-Identity framework
-Web Api
-Bootstrap
-Language
-Authorisation 
-Unit Testing
+- MVC design pattern
+- Entity framework
+- Identity framework
+- Web Api
+- Bootstrap
+- Language
+- Authorisation 
+- Unit Testing
 
-C#
-JavaScript
-JQuery
-Ajex
-Razor
-Html
-SQL
+Languages
+- C#
+- JavaScript
+- JQuery
+- Ajex
+- Razor
+- Html
+- SQL
 
