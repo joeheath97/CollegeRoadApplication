@@ -1,22 +1,19 @@
 # CollegeRoadApplication
+An ASP.Net Application where you create swimming meet and events. You have the ability to add swimmers to these events and track results, search information, create a different member account to show personalised or restricted data.  
 
-Swimming club application for creating swimming meets, event, races. Creating Swimming Club Offical, Swimmer and Parent accounts to view account limited content. 
-
-# What i Learned
-- MVC design pattern
-- Entity framework
-- Identity framework
-- Web Api
+# What I Learned
+- MVC design pattern and separation of concern 
+- ASP.Net Entity and Identity framework 
+- Web API
 - Bootstrap
 - Authorisation 
 - Unit Testing
 
-# Languages
+# Language used
 - C#
-- JavaScript
-- JQuery
-- Ajex
-- Razor
-- Html
+- JavaScript, Html and CSS
+- JQuery & Ajax
 - SQL
+
+
 
