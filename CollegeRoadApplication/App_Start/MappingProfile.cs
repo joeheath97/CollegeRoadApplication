@@ -13,8 +13,16 @@ namespace CollegeRoadApplication.App_Start
         public MappingProfile()
         {
             // Source and Target
+
+            // Domain to Dto
             Mapper.CreateMap<SwimmingMeet, SwimmingMeetDto>();
-            Mapper.CreateMap<SwimmingMeetDto, SwimmingMeet>();
+            Mapper.CreateMap<SwimmingEvent, SwimmingEventDto>();
+
+
+            // Dto to Domain
+            Mapper.CreateMap<SwimmingMeetDto, SwimmingMeet>().ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<SwimmingEventDto, SwimmingEvent>().ForMember(c => c.Id, opt => opt.Ignore());
+
         }
     }
 }

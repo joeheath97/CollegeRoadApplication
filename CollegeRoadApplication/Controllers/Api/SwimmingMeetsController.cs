@@ -33,10 +33,11 @@ namespace CollegeRoadApplication.Controllers.Api
 
 
         // GET: /api/SwimmingMeets
-        public IEnumerable<SwimmingMeetDto> GetSwimmingMeets()
+        public IHttpActionResult GetSwimmingMeets()
         {
-            //return _context.SwimmingMeets.ToList().Select(Mapper.Map<SwimmingMeet, SwimmingMeetDto>);
-            return _swimmingMeetRepository.GetAllSwimmingMeets().Select(Mapper.Map<SwimmingMeet, SwimmingMeetDto>);
+            var swimmingMeetDto = _swimmingMeetRepository.GetAllSwimmingMeets().Select(Mapper.Map<SwimmingMeet, SwimmingMeetDto>);
+
+            return Ok(swimmingMeetDto);
         }
 
         // PUT: /api/SwimmingMeets/5
