@@ -10,6 +10,8 @@ namespace CollegeRoadApplication.DAL
     public interface ILaneRepository : IDisposable
     {
         IEnumerable<ApplicationUser> GetAllEligiableSwimmers();
+
+        IEnumerable<Lane> GetAllLanes();
         Lane GetLaneInDb(int id);
         Lane GetLaneById(int id);
         Lane FindById(int id);

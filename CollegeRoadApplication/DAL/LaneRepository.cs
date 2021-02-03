@@ -15,6 +15,11 @@ namespace CollegeRoadApplication.DAL
             _context = context;
         }
 
+        public IEnumerable<Lane> GetAllLanes()
+        {
+            return _context.Lanes.ToList();
+        }
+
         public IEnumerable<ApplicationUser> GetAllEligiableSwimmers()
         {
             return _context.Users.Where(m => m.isAllowedToSwim == true).ToList();

@@ -188,6 +188,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\LanesController.cs" />
     <Compile Include="Controllers\Api\SwimmingEventsController.cs" />
     <Compile Include="Controllers\Api\SwimmingMeetsController.cs" />
     <Compile Include="Controllers\FamilyGroupController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="DAL\MemberRepository.cs" />
     <Compile Include="DAL\SwimmingEventRepository.cs" />
     <Compile Include="DAL\SwimmingMeetRepository.cs" />
+    <Compile Include="Dtos\LaneDto.cs" />
     <Compile Include="Dtos\SwimmingEventDto.cs" />
     <Compile Include="Dtos\SwimmingMeetDto.cs" />
     <Compile Include="Global.asax.cs">
