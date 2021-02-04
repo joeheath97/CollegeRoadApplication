@@ -19,6 +19,7 @@ namespace CollegeRoadApplication.App_Start
             Mapper.CreateMap<SwimmingEvent, SwimmingEventDto>();
             Mapper.CreateMap<Lane, LaneDto>();
             Mapper.CreateMap<ApplicationUser, MemberDto>();
+            Mapper.CreateMap<FamilyGroup, FamilyGroupDto>();
 
 
 
@@ -27,6 +28,8 @@ namespace CollegeRoadApplication.App_Start
             Mapper.CreateMap<SwimmingEventDto, SwimmingEvent>().ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<LaneDto, Lane>().ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<MemberDto, ApplicationUser>().ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<FamilyGroupDto, FamilyGroup>().ForMember(c => c.Id, opt => opt.Ignore());
+
 
 
 
