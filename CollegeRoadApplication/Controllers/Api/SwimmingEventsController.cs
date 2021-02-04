@@ -56,7 +56,7 @@ namespace CollegeRoadApplication.Controllers.Api
 
             swimmingEventDto.Id = swimmingEvent.Id;
 
-            return Ok(swimmingEventDto);
+            return CreatedAtRoute("DefaultApi", new { id = swimmingEventDto.Id }, swimmingEventDto);
         }
     }
 }

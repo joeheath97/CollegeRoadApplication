@@ -47,14 +47,15 @@ namespace CollegeRoadApplication.Controllers.Api
                 return BadRequest();
             }
 
-            var lane = Mapper.Map<LaneDto, Lane>(laneDto);
+            var lane = Mapper.Map<LaneDto, Lane>(laneDto); 
 
             _laneRepository.Add(lane);
             _laneRepository.Save();
 
             laneDto.Id = lane.Id;
 
-            return Ok(laneDto);
+            return CreatedAtRoute("DefaultApi", new { id = laneDto.Id }, laneDto);
+
         }
 
         // PUT: /api/lanes/5
