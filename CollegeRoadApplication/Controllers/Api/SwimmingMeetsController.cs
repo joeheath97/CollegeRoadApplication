@@ -40,8 +40,9 @@ namespace CollegeRoadApplication.Controllers.Api
             return Ok(swimmingMeetDto);
         }
 
-        // PUT: /api/SwimmingMeets/5
-        [HttpPut]
+        // POST: /api/SwimmingMeets/5
+        [HttpPost]
+        [Authorize(Roles = "Admin,SCO")]
         public IHttpActionResult CreateSwimmingMeet(SwimmingMeetDto swimmingMeetDto)
         {
             if (!ModelState.IsValid)
