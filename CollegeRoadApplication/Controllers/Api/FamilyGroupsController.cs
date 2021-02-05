@@ -13,7 +13,7 @@ namespace CollegeRoadApplication.Controllers.Api
 {
     public class FamilyGroupsController : ApiController
     {
-        private IFamilyGroupRepository _familyGroupRepository;
+        private readonly IFamilyGroupRepository _familyGroupRepository;
 
         public FamilyGroupsController()
         {
@@ -37,6 +37,26 @@ namespace CollegeRoadApplication.Controllers.Api
             var familyGroupDto = _familyGroupRepository.GetAllFamilyGroups().Select(Mapper.Map<FamilyGroup, FamilyGroupDto>);
 
             return Ok(familyGroupDto);
+        }
+
+        // POST: /api/familygroup
+        [HttpPost]
+        [Authorize(Roles = "Admin,SCO")]
+        public IHttpActionResult CreateFamilyGroup(FamilyGroupDto familyGroupDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var familyGroup = Mapper.Map<FamilyGroupDto, FamilyGroup>(familyGroupDto);
+
+            _familyGroupRepository.Add(familyGroup);
+            _familyGroupRepository.Save();
+
+            familyGroupDto.Id = familyGroup.Id;
+
+            return CreatedAtRoute("DefaultApi", new {id = familyGroupDto.Id}, familyGroupDto);
         }
 
     }

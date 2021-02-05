@@ -12,7 +12,7 @@ namespace CollegeRoadApplication.Controllers
 {
     public class FamilyGroupController : Controller
     {
-        private IFamilyGroupRepository _familyGroupRepository;
+        private readonly IFamilyGroupRepository _familyGroupRepository;
 
         public FamilyGroupController()
         {
@@ -35,19 +35,17 @@ namespace CollegeRoadApplication.Controllers
         {
             var familyGroup = _familyGroupRepository.GetAllFamilyGroups();
 
-            if (User.IsInRole("Parent"))
-            {
-                var currentUserId = User.Identity.GetUserId();
+            if (!User.IsInRole("Parent")) return View(familyGroup);
 
-                var user = _familyGroupRepository.GetUserById(currentUserId);
+            var currentUserId = User.Identity.GetUserId();
 
-                var linkedFamilyGroup = _familyGroupRepository.GetUserFamilyGroup(user.FamilyGroupId);
+            var user = _familyGroupRepository.GetUserById(currentUserId);
 
-                return View(linkedFamilyGroup);
-            }
+            var linkedFamilyGroup = _familyGroupRepository.GetUserFamilyGroup(user.FamilyGroupId);
+
+            return View(linkedFamilyGroup);
 
 
-            return View(familyGroup);
         }
 
 
