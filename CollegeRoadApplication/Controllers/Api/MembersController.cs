@@ -64,6 +64,6 @@ namespace CollegeRoadApplication.Controllers.Api
             return Ok();
         }
 
-        
+
     }
 }
