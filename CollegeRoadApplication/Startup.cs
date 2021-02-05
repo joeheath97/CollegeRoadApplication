@@ -2,7 +2,9 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
+using System.Web.Http;
 
 [assembly: OwinStartupAttribute(typeof(CollegeRoadApplication.Startup))]
 namespace CollegeRoadApplication
@@ -13,6 +15,10 @@ namespace CollegeRoadApplication
         {
             ConfigureAuth(app);
             createRolesandUsers();
+
+            var config = new HttpConfiguration();
+            app.UseCors(CorsOptions.AllowAll);
+            app.UseWebApi(config);
         }
 
         // In this method we will create default User roles and Admin user for login    
