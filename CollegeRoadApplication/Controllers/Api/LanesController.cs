@@ -13,7 +13,7 @@ namespace CollegeRoadApplication.Controllers.Api
 {
     public class LanesController : ApiController
     {
-        private ILaneRepository _laneRepository;
+        private readonly ILaneRepository _laneRepository;
 
         public LanesController()
         {
@@ -40,6 +40,7 @@ namespace CollegeRoadApplication.Controllers.Api
 
         // POST: /api/lanes
         [HttpPost]
+        [Authorize(Roles = "Admin,SCO")]
         public IHttpActionResult CreateLane(LaneDto laneDto)
         {
             if (!ModelState.IsValid)
@@ -60,6 +61,7 @@ namespace CollegeRoadApplication.Controllers.Api
 
         // PUT: /api/lanes/5
         [HttpPut]
+        [Authorize(Roles = "Admin,SCO")]
         public IHttpActionResult UpdateLane(int id, LaneDto laneDto)
         {
             if (!ModelState.IsValid)

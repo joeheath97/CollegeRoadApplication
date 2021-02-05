@@ -14,7 +14,7 @@ namespace CollegeRoadApplication.Controllers.Api
     public class SwimmingMeetsController : ApiController
     {
 
-        private ISwimmingMeetRepository _swimmingMeetRepository;
+        private readonly ISwimmingMeetRepository _swimmingMeetRepository;
 
         public SwimmingMeetsController()
         {
