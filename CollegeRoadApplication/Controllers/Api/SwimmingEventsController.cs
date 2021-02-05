@@ -13,7 +13,7 @@ namespace CollegeRoadApplication.Controllers.Api
 {
     public class SwimmingEventsController : ApiController
     {
-        private ISwimmingEventRepository _swimmingEventRepository;
+        private readonly ISwimmingEventRepository _swimmingEventRepository;
 
         public SwimmingEventsController()
         {
@@ -30,7 +30,7 @@ namespace CollegeRoadApplication.Controllers.Api
             _swimmingEventRepository.Dispose();
         }
 
-
+   
         // GET: /api/swimmingEvents 
         public IHttpActionResult GetSwimmingEvents()
         {
@@ -42,6 +42,7 @@ namespace CollegeRoadApplication.Controllers.Api
 
         // POST: /api/swimmingEvents/
         [HttpPost]
+        [Authorize(Roles = "Admin,SCO")]
         public IHttpActionResult CreateSwimmingEvent(SwimmingEventDto swimmingEventDto)
         {
             if (!ModelState.IsValid)
