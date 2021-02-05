@@ -13,7 +13,7 @@ namespace CollegeRoadApplication.Controllers.Api
 {
     public class MembersController : ApiController
     {
-        private IMemberRepository _memberRepository;
+        private readonly IMemberRepository _memberRepository;
 
         public MembersController()
         {
@@ -34,14 +34,15 @@ namespace CollegeRoadApplication.Controllers.Api
         // GET: /api/members
         public IHttpActionResult GetMembers()
         {
-            var MemberDto = _memberRepository.GetAllMembers().Select(Mapper.Map<ApplicationUser, MemberDto>);
+            var memberDto = _memberRepository.GetAllMembers().Select(Mapper.Map<ApplicationUser, MemberDto>);
 
-            return Ok(MemberDto);
+            return Ok(memberDto);
         }
 
 
         // PUT: /api/member/5
         [HttpPut]
+        [Authorize(Roles = "Admin, SCO")]
         public IHttpActionResult UpdateMember(string id, MemberDto memberDto)
         {
             if (!ModelState.IsValid)
@@ -49,14 +50,14 @@ namespace CollegeRoadApplication.Controllers.Api
                 return BadRequest();
             }
 
-            var memberInDB = _memberRepository.GetMemberInDB(id);
+            var memberInDb = _memberRepository.GetMemberInDB(id);
 
             if (memberDto == null)
             {
                 return NotFound();
             }
 
-            Mapper.Map(memberDto, memberInDB);
+            Mapper.Map(memberDto, memberInDb);
 
             _memberRepository.Save();
 
