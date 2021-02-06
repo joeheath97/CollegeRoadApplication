@@ -40,6 +40,18 @@ namespace CollegeRoadApplication.Controllers.Api
             return Ok(swimmingEventDto);
         }
 
+        // GET: /api/swimingEvents/5
+        /**
+        * Param {id} - Swimming Meet Id 
+        */
+        [HttpGet]
+        public IHttpActionResult GetSwimmingMeetEvents(int id)
+        {
+            var swimmingEventDto = _swimmingEventRepository.GetAllMeetEvents(id).Select(Mapper.Map<SwimmingEvent, SwimmingEventDto>);
+
+            return Ok(swimmingEventDto);
+        }
+
         // POST: /api/swimmingEvents/
         [HttpPost]
         [Authorize(Roles = "Admin,SCO")]
