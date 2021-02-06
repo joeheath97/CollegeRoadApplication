@@ -189,6 +189,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\SimpleController.cs" />
     <Compile Include="OAuthProvider\ApplicationOAuthProvider.cs" />
     <Compile Include="OAuthProvider\ChallengeResults.cs" />

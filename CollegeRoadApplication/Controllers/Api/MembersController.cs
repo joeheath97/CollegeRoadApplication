@@ -64,6 +64,27 @@ namespace CollegeRoadApplication.Controllers.Api
             return Ok();
         }
 
+        //
+        // POST: /api/member    
+        [HttpPost]
+        public IHttpActionResult CreateMember(MemberDto memberDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var member = Mapper.Map<MemberDto, ApplicationUser>(memberDto);
+
+            _memberRepository.Add(member);
+            _memberRepository.Save();
+
+            memberDto.Id = member.Id;
+
+
+            return CreatedAtRoute("DefaultApi", new { id = memberDto.Id }, memberDto);
+        }
+
 
     }
 }

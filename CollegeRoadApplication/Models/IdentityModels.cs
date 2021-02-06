@@ -67,5 +67,6 @@ namespace CollegeRoadApplication.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }
