@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace CollegeRoadApplication.Controllers.Api
 {
@@ -37,6 +38,29 @@ namespace CollegeRoadApplication.Controllers.Api
             var familyGroupDto = _familyGroupRepository.GetAllFamilyGroups().Select(Mapper.Map<FamilyGroup, FamilyGroupDto>);
 
             return Ok(familyGroupDto);
+        }
+
+        // GET: /api/familygroup/5
+        /**
+         * Param {id} - users familyGroup id
+         */
+        [Authorize(Roles = "Parent")]
+        public IHttpActionResult GetUsersFamilyGroup(int id)
+        {
+            //var familyGroupDto = _familyGroupRepository.GetUserFamilyGroup(id).Select(Mapper.Map<FamilyGroup, FamilyGroupDto>);
+
+            var familyGroup = _familyGroupRepository.GetFamilyGroupById(id);
+
+            if (familyGroup == null)
+            {
+                return BadRequest();
+            }
+
+            familyGroup.Members = _familyGroupRepository.GetMembersInFamilyGroup(id);
+
+            
+
+            return Ok(Mapper.Map<FamilyGroup, FamilyGroupDto>(familyGroup));
         }
 
         // POST: /api/familygroup

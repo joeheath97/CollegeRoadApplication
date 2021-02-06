@@ -13,5 +13,7 @@ namespace CollegeRoadApplication.Dtos
         [Required]
         public string Name { get; set; }
 
+        public ICollection<MemberDto> Members { get; set; }
+
     }
 }
