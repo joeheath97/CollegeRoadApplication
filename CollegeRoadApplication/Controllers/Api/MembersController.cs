@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace CollegeRoadApplication.Controllers.Api
 {
+    [RoutePrefix("api/members")]
     public class MembersController : ApiController
     {
         private readonly IMemberRepository _memberRepository;
@@ -39,6 +41,17 @@ namespace CollegeRoadApplication.Controllers.Api
             return Ok(memberDto);
         }
 
+        [HttpGet]
+        [Route("search")]
+        public IHttpActionResult Search(string name ="", string age = "")
+        {
+            var memberDto = _memberRepository.GetAllMembers()
+                .Where(x => x.Name.ToLower().Contains(name.ToLower()))
+                .Where(x => x.Age.ToString().Contains(age))
+                .Select(Mapper.Map<ApplicationUser, MemberDto>);
+
+            return Ok(memberDto);
+        }
 
         // PUT: /api/member/5
         [HttpPut]

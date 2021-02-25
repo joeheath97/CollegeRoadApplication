@@ -192,6 +192,11 @@
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\SimpleController.cs" />
     <Compile Include="Controllers\Api\SwimmersController.cs" />
+    <Compile Include="Dtos\FamilyGroupOnlyDto.cs" />
+    <Compile Include="Migrations\202102231209363_AddContactToFamilyGroup.cs" />
+    <Compile Include="Migrations\202102231209363_AddContactToFamilyGroup.Designer.cs">
+      <DependentUpon>202102231209363_AddContactToFamilyGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="OAuthProvider\ApplicationOAuthProvider.cs" />
     <Compile Include="OAuthProvider\ChallengeResults.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -417,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012171327039_AddFamilyGroup.resx">
       <DependentUpon>202012171327039_AddFamilyGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102231209363_AddContactToFamilyGroup.resx">
+      <DependentUpon>202102231209363_AddContactToFamilyGroup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace CollegeRoadApplication.Controllers.Api
 {
+    [RoutePrefix("api/swimmingevents")]
     public class SwimmingEventsController : ApiController
     {
         private readonly ISwimmingEventRepository _swimmingEventRepository;
@@ -41,18 +42,28 @@ namespace CollegeRoadApplication.Controllers.Api
             return Ok(swimmingEventDto);
         }
 
-        // GET: /api/swimingEvents/5
-        /**
-        * Param {id} - Swimming Meet Id 
-        */
+        //// GET: /api/swimingEvents/5
+        ///**
+        //* Param {id} - Swimming Meet Id 
+        //*/
+        //[HttpGet]
+        //public IHttpActionResult GetSwimmingMeetEvents(int id)
+        //{
+        //    var swimmingEventDto = _swimmingEventRepository.GetAllMeetEvents(id).Select(Mapper.Map<SwimmingEvent, SwimmingEventDto>);
+
+        //    return Ok(swimmingEventDto);
+        //}
+
         [HttpGet]
-        public IHttpActionResult GetSwimmingMeetEvents(int id)
+        [Route("search")]
+        public IHttpActionResult Search(string stroke)
         {
-            var swimmingEventDto = _swimmingEventRepository.GetAllMeetEvents(id).Select(Mapper.Map<SwimmingEvent, SwimmingEventDto>);
+            var swimmingEventDto = _swimmingEventRepository.GetAllSwimmingEvents()
+                .Where(x => x.Stroke.ToLower().Contains(stroke.ToLower()))
+                .Select(Mapper.Map<SwimmingEvent, SwimmingEventDto>);
 
             return Ok(swimmingEventDto);
         }
-
         // POST: /api/swimmingEvents/
         [HttpPost]
         [Authorize(Roles = "Admin,SCO")]

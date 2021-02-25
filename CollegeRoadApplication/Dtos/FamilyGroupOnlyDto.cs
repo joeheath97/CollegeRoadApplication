@@ -4,18 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CollegeRoadApplication.Models
+namespace CollegeRoadApplication.Dtos
 {
-    public class FamilyGroup
+    public class FamilyGroupOnlyDto
     {
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Family Group")]
         public string Name { get; set; }
 
-        public string Contact { get; set; }
+        public string  Contact { get; set; }
 
-        public virtual ICollection<ApplicationUser> Members { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace CollegeRoadApplication.App_Start
             Mapper.CreateMap<Lane, LaneDto>();
             Mapper.CreateMap<ApplicationUser, MemberDto>();
             Mapper.CreateMap<FamilyGroup, FamilyGroupDto>();
+            Mapper.CreateMap<FamilyGroup, FamilyGroupOnlyDto>();
+
 
 
 
@@ -29,6 +31,8 @@ namespace CollegeRoadApplication.App_Start
             Mapper.CreateMap<LaneDto, Lane>().ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<MemberDto, ApplicationUser>().ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<FamilyGroupDto, FamilyGroup>().ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<FamilyGroupOnlyDto, FamilyGroup>().ForMember(c => c.Id, opt => opt.Ignore());
+
 
 
 

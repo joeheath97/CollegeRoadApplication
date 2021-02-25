@@ -83,5 +83,34 @@ namespace CollegeRoadApplication.Controllers.Api
             return CreatedAtRoute("DefaultApi", new {id = familyGroupDto.Id}, familyGroupDto);
         }
 
+        // PUT: /api/familygroups/5
+        /**
+         * Param {id} - familyGroup id
+         *
+        */
+
+        [HttpPut]
+        [Authorize(Roles = "Parent")]
+        public IHttpActionResult UpdateFamiliyContact(int id, FamilyGroupOnlyDto familyGroupDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var familyGroupInDb = _familyGroupRepository.GetFamilyGroupInDb(id);
+
+            if (familyGroupDto == null)
+            {
+                return NotFound();
+            }
+
+            Mapper.Map(familyGroupDto, familyGroupInDb);
+
+            _familyGroupRepository.Save();
+
+            return Ok();
+        }
+
     }
 }
