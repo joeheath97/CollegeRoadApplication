@@ -30,5 +30,7 @@ namespace CollegeRoadApplication.Dtos
 
         public string Round { get; set; }
 
+        public virtual ICollection<LaneDto> Lanes { get; set; }
+
     }
 }

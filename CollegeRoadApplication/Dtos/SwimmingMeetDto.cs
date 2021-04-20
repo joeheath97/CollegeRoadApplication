@@ -19,7 +19,7 @@ namespace CollegeRoadApplication.Dtos
 
         public DateTime Date { get; set; }
 
-        //public virtual ICollection<SwimmingEvent> SwimmingEvents { get; set; } // Collection Navigation property > Swimming Meet can have multiple events
+        public virtual ICollection<SwimmingEventDto> SwimmingEvents { get; set; } // Collection Navigation property > Swimming Meet can have multiple events
 
     }
 }
